@@ -48,3 +48,5 @@ next-env.d.ts
 # Raw source resources (already copied into public/uploads)
 /Innovation Web Files/
 /Innovation Web Files.rar
+
+deno.lock
