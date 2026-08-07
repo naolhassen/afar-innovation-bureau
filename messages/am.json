@@ -1,0 +1,100 @@
+{
+  "siteName": "አፋር ብሔራዊ ክልላዊ መንግስት ኢንፎርሜሽንና ቴክኖሎጂ ልማት ቢሮ",
+  "siteNameShort": "አፋር ኢቴክ ቢሮ",
+  "nav": {
+    "home": "መነሻ",
+    "about": "ስለ እኛ",
+    "sectors": "ዘርፎች",
+    "directorates": "ዳይሬክቶሬቶች",
+    "news": "ዜናዎች",
+    "events": "ዝግጅቶች",
+    "publications": "ጽሑፎች",
+    "gallery": "ፎቶ ማዕከል",
+    "faq": "ተደጋግሞ የሚነሱ ጥያቄዎች",
+    "contact": "አግኙን"
+  },
+  "hero": {
+    "cta": "ተጨማሪ ይመልከቱ",
+    "contact": "አግኙን"
+  },
+  "home": {
+    "bureauHead": "ከቢሮ ኃላፊው መልእክት",
+    "heroBadge": "ዲጂታል አፋር",
+    "heroSubtitle": "ለአፋር ክልል ነዋሪዎችና ተቋማት ፈጠራ፣ ቴክኖሎጂ እና ዲጂታል አገልግሎቶችን በማጎልበት።",
+    "statsSectors": "ዘርፎች",
+    "statsDirectorates": "ዳይሬክቶሬቶች",
+    "statsNews": "ዜናዎች",
+    "statsGallery": "የፎቶ ማዕከል",
+    "sectorsBadge": "የምንሰራው",
+    "sectorsTitle": "የቢሮው ዘርፎች",
+    "sectorsSubtitle": "ቢሮው በክልሉ ዲጂታል ትራንስፎርሜሽንን በሚያንቀሳቅሱ ልዩ ልዩ ዘርፎች ይሰራል።",
+    "whyBadge": "ለምን እኛን ይምረጡ",
+    "whyTitle": "መሰረታዊ እሴቶቻችን",
+    "whySubtitle": "ለአፋር ህዝብ የምንሰጠውን አገልግሎት የሚመሩ መርሆዎች።",
+    "newsBadge": "የቅርብ ጊዜ ዝማኔዎች",
+    "newsTitle": "ዜናዎች እና ዝማኔዎች",
+    "eventsTitle": "ወደፊት የሚደረጉ ዝግጅቶች",
+    "publicationsTitle": "ጽሑፎች",
+    "servicesTitle": "አገልግሎቶችና ግብዓቶች",
+    "ctaTitle": "ለቢሮው ጥያቄ ወይም ፕሮጀክት አለዎት?",
+    "ctaSubtitle": "ቡድናችንን ያግኙ — ነዋሪዎችን፣ አጋሮችን እና ተቋማትን ለመርዳት ዝግጁ ነን።",
+    "ctaButton": "አግኙን",
+    "viewAll": "ሁሉንም ይመልከቱ",
+    "readMore": "ተጨማሪ ያንብቡ",
+    "processBadge": "እንዴት ይሰራል",
+    "processTitle": "አገልግሎታችንን እንዴት ማግኘት ይችላሉ",
+    "processSubtitle": "የቢሮውን ፈጠራና ቴክኖሎጂ አገልግሎቶች ለማግኘት ቀላል የሶስት ደረጃ ሂደት።",
+    "processStep1Title": "ጥያቄዎን ያቅርቡ",
+    "processStep1Text": "በመስመር ላይ፣ በስልክ ወይም በአካል ጥያቄዎን ወይም ማብራሪያዎን ያቅርቡ።",
+    "processStep2Title": "ግምገማ እና ሂደት",
+    "processStep2Text": "ተመጣጣኝ ዳይሬክቶሬታችን ጥያቄዎትን በፍጥነት ይገመግማል እና ያስተናግዳል።",
+    "processStep3Title": "አገልግሎትዎን ያግኙ",
+    "processStep3Text": "ከቢሮው የጠየቁትን ምላሽ፣ ድጋፍ ወይም አገልግሎት ያገኛሉ።",
+    "callUsTitle": "ቀጥተኛ ድጋፍ ይፈልጋሉ?",
+    "callUsSubtitle": "ስለ አገልግሎቶቻችን ማብራሪያ ለማግኘት ከቡድናችን ጋር ይነጋገሩ።",
+    "callUsLabel": "አሁን ይደውሉልን"
+  },
+  "about": {
+    "title": "ስለ እኛ",
+    "mission": "ተልዕኮ",
+    "vision": "ራዕይ",
+    "values": "እሴቶች",
+    "history": "የቢሮው ታሪክ"
+  },
+  "contact": {
+    "title": "ጥያቄ አለዎት? ይደውሉልን ወይም ይጎብኙን።",
+    "phone": "ስልክ",
+    "email": "ኢሜይል",
+    "address": "አድራሻ",
+    "form": {
+      "name": "ሙሉ ስም",
+      "email": "ኢሜይል",
+      "phone": "ስልክ",
+      "subject": "ርዕስ",
+      "message": "መልእክት",
+      "submit": "መልእክት ይላኩ",
+      "success": "መልእክትዎ በተሳካ ሁኔታ ተልኳል።",
+      "error": "ስህተት ተከስቷል። እንደገና ይሞክሩ።"
+    }
+  },
+  "footer": {
+    "usefulLinks": "ጠቃሚ ማገናኛዎች",
+    "directorates": "ዳይሬክቶሬቶች",
+    "followUs": "ይከተሉን",
+    "rights": "መብቱ በህግ የተጠበቀ ነው።"
+  },
+  "common": {
+    "loading": "በመጫን ላይ...",
+    "noResults": "ምንም ውጤት አልተገኘም።",
+    "back": "ተመለስ"
+  },
+  "admin": {
+    "login": "የአስተዳዳሪ መግቢያ",
+    "email": "ኢሜይል",
+    "password": "የሚስጥር ቁልፍ",
+    "signIn": "ግባ",
+    "signOut": "ውጣ",
+    "dashboard": "ዳሽቦርድ",
+    "invalidCredentials": "ትክክል ያልሆነ ኢሜይል ወይም የሚስጥር ቁልፍ"
+  }
+}

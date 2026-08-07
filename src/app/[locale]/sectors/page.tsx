@@ -1,0 +1,48 @@
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import type { Locale } from "@/i18n/routing";
+import { prisma } from "@/lib/prisma";
+import { tf } from "@/lib/localized";
+import PageHero from "@/components/PageHero";
+import { StaggerGroup, StaggerItem } from "@/components/StaggerGroup";
+
+export default async function SectorsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const l = locale as Locale;
+  const t = await getTranslations();
+  const sectors = await prisma.sector.findMany({ orderBy: { order: "asc" } }).catch(() => []);
+
+  return (
+    <div>
+      <PageHero title={t("nav.sectors")} />
+      <section className="mx-auto max-w-6xl px-4 py-14">
+        {sectors.length === 0 ? (
+          <p className="text-sm text-zinc-500">{t("common.noResults")}</p>
+        ) : (
+          <StaggerGroup className="space-y-6">
+            {sectors.map((s) => (
+              <StaggerItem
+                key={s.id}
+                className="rounded-xl border border-zinc-200 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-lg"
+              >
+                <h2 className="text-lg font-bold text-blue-900">{tf(s, "name", l)}</h2>
+                {s.headTitleAf && (
+                  <p className="mt-1 text-sm font-medium text-blue-600">
+                    {tf(s, "headTitle", l)}
+                  </p>
+                )}
+                <p className="mt-3 whitespace-pre-line text-sm leading-relaxed text-zinc-700">
+                  {tf(s, "description", l)}
+                </p>
+              </StaggerItem>
+            ))}
+          </StaggerGroup>
+        )}
+      </section>
+    </div>
+  );
+}

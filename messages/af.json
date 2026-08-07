@@ -1,0 +1,100 @@
+{
+  "siteName": "Qafar Biyaakuh Ummatih Dowlat Ineewaa kee Teknoolojii Ergiiysa Biiroo",
+  "siteNameShort": "Qafar ITDB",
+  "nav": {
+    "home": "Xagana",
+    "about": "Nanu",
+    "sectors": "Qandaarwaa",
+    "directorates": "Waadi Adaawal",
+    "news": "Warri",
+    "events": "Uwwaadli",
+    "publications": "Kitaabwaa",
+    "gallery": "Sawaay Bakki",
+    "faq": "Esserwaa Massowta",
+    "contact": "Nee Xagnisaay"
+  },
+  "hero": {
+    "cta": "Ellee Ubla",
+    "contact": "Nee Xagnisaay"
+  },
+  "home": {
+    "bureauHead": "Biiro Amoyti Warqi",
+    "heroBadge": "Dijital Qafar",
+    "heroSubtitle": "Qafar Rakaakayih Ummattah kee Wakiiltah Ellecabo, Teknoolojii kee Dijital Xaqbo Horonuh.",
+    "statsSectors": "Qandaarwaa",
+    "statsDirectorates": "Waadi Adaawal",
+    "statsNews": "Warri",
+    "statsGallery": "Sawaay Bakki",
+    "sectorsBadge": "Ni Taama",
+    "sectorsTitle": "Ni Qandaarwaa",
+    "sectorsSubtitle": "Biiro Rakaakay Addal Dijital Tabaatabsi Horsiisan Qandaarwal Taamita.",
+    "whyBadge": "Macah Ni Doorittaanam",
+    "whyTitle": "Ni Assaskih Migaq",
+    "whySubtitle": "Qafar Ummattah Xaqbo Kah Ceelinnu Kalliyya.",
+    "newsBadge": "Xayuwwa Ellecabo",
+    "newsTitle": "Warri kee Ellecabo",
+    "eventsTitle": "Radaanam Uwwaadli",
+    "publicationsTitle": "Kitaabwaa",
+    "servicesTitle": "Xaqbo kee Weelo Ubla",
+    "ctaTitle": "Biiroh Esser Hinnay Taama Litinnaa?",
+    "ctaSubtitle": "Ni Buxa Xagnisaay — Ummattah, Kataysa kee Wakiiltah Cakkisnah Fanah Lin.",
+    "ctaButton": "Nee Xagnisaay",
+    "viewAll": "Inkih Ubla",
+    "readMore": "Ellee Akriy",
+    "processBadge": "Macan Taamitam",
+    "processTitle": "Ni Xaqbo Macan Geytan",
+    "processSubtitle": "Biiro Ellecabo kee Teknoolojii Xaqbo Geytamih Sidocak Waqdi Adda.",
+    "processStep1Title": "Ni Esser Rubaay",
+    "processStep1Text": "Onlayn, Sokkiimeek hinnay Numma Ni Esser Hinnay Warqi Rubaay.",
+    "processStep2Title": "Cuglus kee Taama",
+    "processStep2Text": "Ni Waadi Adaawal Esser Sinaamah Cuglusaay Taamita.",
+    "processStep3Title": "Ni Xaqbo Geytaay",
+    "processStep3Text": "Biiro Esserten Ellecabo, Cato Hinnay Xaqbo Geytaanam.",
+    "callUsTitle": "Cato Litinnaa?",
+    "callUsSubtitle": "Xaqbi Kalinnah Ni Buxak Warac.",
+    "callUsLabel": "Nee Xagnisaay"
+  },
+  "about": {
+    "title": "Nanu",
+    "mission": "Taama Waqdi",
+    "vision": "Rabbi Kalah",
+    "values": "Migaq",
+    "history": "Ni Taariikh"
+  },
+  "contact": {
+    "title": "Esser Litinnaa? Sokki nee bica hinnay nee xagnisay.",
+    "phone": "Sokkiimee",
+    "email": "Iimeel",
+    "address": "Bakki",
+    "form": {
+      "name": "Migqi Duudda",
+      "email": "Iimeel",
+      "phone": "Sokkiimee",
+      "subject": "Xaagu",
+      "message": "Warqi",
+      "submit": "Warqi Rubaay",
+      "success": "Kii warqik nagaya rubsime.",
+      "error": "Qalab yekke. Marah taamitaay."
+    }
+  },
+  "footer": {
+    "usefulLinks": "Xiqti Xagoyta",
+    "directorates": "Waadi Adaawal",
+    "followUs": "Nee Katic",
+    "rights": "Inkih migaaqi massa haysinta."
+  },
+  "common": {
+    "loading": "Xiqigiyya...",
+    "noResults": "Ma't gexe wagitto.",
+    "back": "Gamadal"
+  },
+  "admin": {
+    "login": "Amoyti Culta",
+    "email": "Iimeel",
+    "password": "Qellittoo Waaqar",
+    "signIn": "Cula",
+    "signOut": "Awka",
+    "dashboard": "Dashboord",
+    "invalidCredentials": "Iimeel hinnay Qellittoo Waaqar mannu bahan"
+  }
+}

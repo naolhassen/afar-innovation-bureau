@@ -1,0 +1,174 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum AdminRole {
+  SUPER_ADMIN
+  EDITOR
+}
+
+model AdminUser {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  passwordHash String
+  role         AdminRole @default(EDITOR)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model News {
+  id           String    @id @default(cuid())
+  slug         String    @unique
+  titleAf      String
+  titleAm      String
+  titleEn      String
+  excerptAf    String?
+  excerptAm    String?
+  excerptEn    String?
+  contentAf    String
+  contentAm    String
+  contentEn    String
+  coverImage   String?
+  published    Boolean   @default(true)
+  publishedAt  DateTime  @default(now())
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Event {
+  id           String    @id @default(cuid())
+  slug         String    @unique
+  titleAf      String
+  titleAm      String
+  titleEn      String
+  descriptionAf String
+  descriptionAm String
+  descriptionEn String
+  location     String?
+  coverImage   String?
+  startDate    DateTime
+  endDate      DateTime?
+  published    Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Publication {
+  id           String    @id @default(cuid())
+  titleAf      String
+  titleAm      String
+  titleEn      String
+  descriptionAf String?
+  descriptionAm String?
+  descriptionEn String?
+  fileUrl      String
+  coverImage   String?
+  published    Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model GalleryItem {
+  id          String   @id @default(cuid())
+  titleAf     String?
+  titleAm     String?
+  titleEn     String?
+  imageUrl    String
+  createdAt   DateTime @default(now())
+}
+
+model Sector {
+  id            String   @id @default(cuid())
+  order         Int      @default(0)
+  nameAf        String
+  nameAm        String
+  nameEn        String
+  headTitleAf   String?
+  headTitleAm   String?
+  headTitleEn   String?
+  descriptionAf String?
+  descriptionAm String?
+  descriptionEn String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Directorate {
+  id            String   @id @default(cuid())
+  order         Int      @default(0)
+  nameAf        String
+  nameAm        String
+  nameEn        String
+  descriptionAf String?
+  descriptionAm String?
+  descriptionEn String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model FaqItem {
+  id           String   @id @default(cuid())
+  order        Int      @default(0)
+  questionAf   String
+  questionAm   String
+  questionEn   String
+  answerAf     String
+  answerAm     String
+  answerEn     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String?
+  message   String
+  createdAt DateTime @default(now())
+  isRead    Boolean  @default(false)
+}
+
+model SiteSetting {
+  id                String   @id @default(cuid())
+  missionAf         String?
+  missionAm         String?
+  missionEn         String?
+  visionAf          String?
+  visionAm          String?
+  visionEn          String?
+  valuesAf          String?
+  valuesAm          String?
+  valuesEn          String?
+  historyAf         String?
+  historyAm         String?
+  historyEn         String?
+  bureauHeadMsgAf   String?
+  bureauHeadMsgAm   String?
+  bureauHeadMsgEn   String?
+  bureauHeadName    String?
+  bureauHeadPhoto   String?
+  phone             String?
+  email             String?
+  addressAf         String?
+  addressAm         String?
+  addressEn         String?
+  facebookUrl       String?
+  telegramUrl       String?
+  twitterUrl        String?
+  instagramUrl      String?
+  youtubeUrl        String?
+  updatedAt         DateTime @updatedAt
+}

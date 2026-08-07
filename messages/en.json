@@ -1,0 +1,100 @@
+{
+  "siteName": "Afar Regional State Innovation and Technology Development Bureau",
+  "siteNameShort": "Afar ITDB",
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "sectors": "Sectors",
+    "directorates": "Directorates",
+    "news": "News",
+    "events": "Events",
+    "publications": "Publications",
+    "gallery": "Gallery",
+    "faq": "FAQs",
+    "contact": "Contact Us"
+  },
+  "hero": {
+    "cta": "Learn More",
+    "contact": "Contact Us"
+  },
+  "home": {
+    "bureauHead": "Message from the Bureau Head",
+    "heroBadge": "Digital Afar",
+    "heroSubtitle": "Advancing innovation, technology, and digital services for the residents and institutions of the Afar Regional State.",
+    "statsSectors": "Sectors",
+    "statsDirectorates": "Directorates",
+    "statsNews": "News Updates",
+    "statsGallery": "Gallery Moments",
+    "sectorsBadge": "What We Do",
+    "sectorsTitle": "Our Sectors",
+    "sectorsSubtitle": "The Bureau operates through specialized sectors driving digital transformation across the region.",
+    "whyBadge": "Why Choose Us",
+    "whyTitle": "Our Core Values",
+    "whySubtitle": "The principles that guide every service we deliver to the people of Afar.",
+    "newsBadge": "Latest Updates",
+    "newsTitle": "News & Updates",
+    "eventsTitle": "Upcoming Events",
+    "publicationsTitle": "Publications",
+    "servicesTitle": "Explore Services & Resources",
+    "ctaTitle": "Have a project or question for the Bureau?",
+    "ctaSubtitle": "Reach out to our team \u2014 we're here to help residents, partners, and institutions.",
+    "ctaButton": "Get in Touch",
+    "viewAll": "View All",
+    "readMore": "Read More",
+    "processBadge": "How It Works",
+    "processTitle": "How You Can Get Our Services",
+    "processSubtitle": "A simple three-step process to access the Bureau's innovation and technology services.",
+    "processStep1Title": "Submit Your Request",
+    "processStep1Text": "Reach out online, by phone, or in person with your request or inquiry.",
+    "processStep2Title": "Review & Processing",
+    "processStep2Text": "Our relevant directorate reviews and processes your request promptly.",
+    "processStep3Title": "Get Your Service",
+    "processStep3Text": "Receive feedback, support, or the service you requested from the Bureau.",
+    "callUsTitle": "Need Direct Assistance?",
+    "callUsSubtitle": "Speak with our team for guidance on any of our services.",
+    "callUsLabel": "Call Us Now"
+  },
+  "about": {
+    "title": "About Us",
+    "mission": "Mission",
+    "vision": "Vision",
+    "values": "Values",
+    "history": "Our History"
+  },
+  "contact": {
+    "title": "Do you have a request? Call or visit us.",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "form": {
+      "name": "Full Name",
+      "email": "Email",
+      "phone": "Phone",
+      "subject": "Subject",
+      "message": "Message",
+      "submit": "Send Message",
+      "success": "Your message has been sent successfully.",
+      "error": "Something went wrong. Please try again."
+    }
+  },
+  "footer": {
+    "usefulLinks": "Useful Links",
+    "directorates": "Directorates",
+    "followUs": "Follow Us",
+    "rights": "All rights reserved."
+  },
+  "common": {
+    "loading": "Loading...",
+    "noResults": "No results found.",
+    "back": "Back"
+  },
+  "admin": {
+    "login": "Admin Login",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "dashboard": "Dashboard",
+    "invalidCredentials": "Invalid email or password"
+  }
+}

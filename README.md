@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Afar Regional State Innovation and Technology Development Bureau (ITDB) Website
+
+A trilingual (Afar, Amharic, English) government website built with Next.js 16 (App Router), Prisma 7 + PostgreSQL (Neon), next-intl, and NextAuth (Auth.js) v5.
+
+## Stack
+
+- **Framework:** Next.js 16 (App Router, Turbopack)
+- **Database:** PostgreSQL (Neon) via Prisma ORM 7 with the `@prisma/adapter-pg` driver adapter
+- **i18n:** `next-intl` — Afar (`af`, default), Amharic (`am`), English (`en`)
+- **Auth:** NextAuth v5 (Credentials provider) for the admin panel
+- **Styling:** Tailwind CSS v4, Lucide icons
+
+## Project Structure
+
+- `src/app/[locale]/...` — public, localized pages (Home, About, Sectors, Directorates, News, Events, Publications, Gallery, FAQ, Contact)
+- `src/app/admin/...` — admin CMS (route group `(protected)` is guarded by NextAuth session; `login` is public)
+- `src/app/api/...` — API routes: `auth`, `contact` (public message submission), `upload` (authenticated file upload)
+- `prisma/schema.prisma` — data model. Content models (News, Event, Publication, Sector, Directorate, FaqItem, GalleryItem, SiteSetting) store `*Af`/`*Am`/`*En` fields per translatable field.
+- `src/lib/localized.ts` — `tf(record, field, locale)` helper to read the correct localized field.
+- `prisma/seed.ts` — creates the default admin user and sample site settings/sectors/directorates.
 
 ## Getting Started
 
-First, run the development server:
+1. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. **Configure environment variables** — create/edit `.env`:
+   ```env
+   DATABASE_URL="postgresql://<user>:<password>@<host>/<db>?sslmode=require"
+   AUTH_SECRET="<random base64 string>"
+   ```
+   Generate a secret with: `node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. **Push schema & generate client**
+   ```bash
+   npx prisma migrate dev
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+4. **Seed the database** (creates admin user + default content)
+   ```bash
+   npm run seed
+   ```
+   Default admin login: `admin@afaritdb.gov.et` / `Afar@ITDB2026` — **change this password after first login is implemented, or update it directly in the database.**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+5. **Run the dev server**
+   ```bash
+   npm run dev
+   ```
+   Visit [http://localhost:3000](http://localhost:3000) (redirects to `/af`). Admin panel: [http://localhost:3000/admin/login](http://localhost:3000/admin/login).
 
-## Learn More
+## Admin CMS
 
-To learn more about Next.js, take a look at the following resources:
+Manage all site content at `/admin`:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **News**, **Events**, **Publications** — full create/edit/delete with trilingual fields and file/image upload.
+- **Gallery** — image upload + delete.
+- **Sectors**, **Directorates**, **FAQs** — trilingual create/edit/delete.
+- **Messages** — view/mark-read/delete contact form submissions.
+- **Site Settings** — mission/vision/values/history, bureau head message, contact info, social links.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Uploaded files are stored under `public/uploads/`.
 
-## Deploy on Vercel
+## Notes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `src/proxy.ts` replaces the deprecated `middleware.ts` convention (Next.js 16) and handles locale routing via `next-intl`.
+- Pages under `/[locale]` are rendered dynamically (`export const dynamic = "force-dynamic"` in the locale layout) since content is admin-editable and stored in the database.
+- Server Components must use `getTranslations` from `next-intl/server` (not the `useTranslations` client hook) when the component is `async`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+
+Any Node.js-capable host works (Vercel, etc.). Ensure `DATABASE_URL` and `AUTH_SECRET` are set in the deployment environment, and that `public/uploads` is either persisted or replaced with a cloud storage integration for production use.
