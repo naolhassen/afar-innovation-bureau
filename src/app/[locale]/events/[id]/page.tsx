@@ -18,8 +18,8 @@ export default async function EventDetailPage({
   if (!item || !item.published) notFound();
 
   return (
-    <article className="mx-auto max-w-3xl px-4 py-14">
-      <h1 className="text-2xl font-extrabold text-blue-900 sm:text-3xl">
+    <article className="mx-auto max-w-3xl px-4 pb-16 pt-36">
+      <h1 className="text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">
         {tf(item, "title", l)}
       </h1>
       <div className="mt-3 flex flex-wrap gap-4 text-sm text-zinc-600">
@@ -34,7 +34,7 @@ export default async function EventDetailPage({
           </span>
         )}
       </div>
-      <div className="mt-6 h-64 rounded-xl bg-blue-100" />
+      <div className="cg-gradient-btn mt-6 h-64 rounded-xl opacity-20" />
       <div className="prose prose-blue mt-8 max-w-none whitespace-pre-line leading-relaxed text-zinc-800">
         {tf(item, "description", l)}
       </div>

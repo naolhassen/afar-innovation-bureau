@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 const variants: Record<string, Variants> = {
   up: {
@@ -31,15 +31,18 @@ export default function Reveal({
   direction = "up",
   delay = 0,
   className,
+  style,
 }: {
   children: ReactNode;
   direction?: "up" | "down" | "left" | "right" | "scale";
   delay?: number;
   className?: string;
+  style?: CSSProperties;
 }) {
   return (
     <motion.div
       className={className}
+      style={style}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}

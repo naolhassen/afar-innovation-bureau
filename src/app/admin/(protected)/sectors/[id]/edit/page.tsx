@@ -14,7 +14,7 @@ export default async function EditSectorPage({
 
   return (
     <div className="mx-auto max-w-3xl">
-      <h1 className="text-2xl font-bold text-emerald-900">Edit Sector</h1>
+      <h1 className="text-2xl font-bold text-emerald-900">Edit Service</h1>
       <div className="mt-6">
         <SectorForm action={(formData) => updateSector(id, formData)} sector={sector} />
       </div>

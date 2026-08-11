@@ -18,11 +18,11 @@ export default async function NewsDetailPage({
   if (!item || !item.published) notFound();
 
   return (
-    <article className="mx-auto max-w-3xl px-4 py-14">
+    <article className="mx-auto max-w-3xl px-4 pb-16 pt-36">
       <p className="text-sm text-zinc-500">
         {new Date(item.publishedAt).toLocaleDateString(locale)}
       </p>
-      <h1 className="mt-2 text-2xl font-extrabold text-blue-900 sm:text-3xl">
+      <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">
         {tf(item, "title", l)}
       </h1>
       {item.coverImage && (

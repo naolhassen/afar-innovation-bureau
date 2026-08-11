@@ -1,10 +1,10 @@
 {
-  "siteName": "አፋር ብሔራዊ ክልላዊ መንግስት ኢንፎርሜሽንና ቴክኖሎጂ ልማት ቢሮ",
+  "siteName": "የአፋር ብሔራዊ ክልላዊ መንግስት ሳይንስ ኢኖቬሽንና ቴክኖሎጂ ቢሮ",
   "siteNameShort": "አፋር ኢቴክ ቢሮ",
   "nav": {
     "home": "መነሻ",
     "about": "ስለ እኛ",
-    "sectors": "ዘርፎች",
+    "sectors": "አገልግሎቶች",
     "directorates": "ዳይሬክቶሬቶች",
     "news": "ዜናዎች",
     "events": "ዝግጅቶች",
@@ -21,13 +21,13 @@
     "bureauHead": "ከቢሮ ኃላፊው መልእክት",
     "heroBadge": "ዲጂታል አፋር",
     "heroSubtitle": "ለአፋር ክልል ነዋሪዎችና ተቋማት ፈጠራ፣ ቴክኖሎጂ እና ዲጂታል አገልግሎቶችን በማጎልበት።",
-    "statsSectors": "ዘርፎች",
+    "statsSectors": "አገልግሎቶች",
     "statsDirectorates": "ዳይሬክቶሬቶች",
     "statsNews": "ዜናዎች",
     "statsGallery": "የፎቶ ማዕከል",
     "sectorsBadge": "የምንሰራው",
-    "sectorsTitle": "የቢሮው ዘርፎች",
-    "sectorsSubtitle": "ቢሮው በክልሉ ዲጂታል ትራንስፎርሜሽንን በሚያንቀሳቅሱ ልዩ ልዩ ዘርፎች ይሰራል።",
+    "sectorsTitle": "የቢሮው አገልግሎቶች",
+    "sectorsSubtitle": "ቢሮው በክልሉ ዲጂታል ትራንስፎርሜሽንን የሚያንቀሳቅሱ ልዩ ልዩ አገልግሎቶችን ይሰጣል።",
     "whyBadge": "ለምን እኛን ይምረጡ",
     "whyTitle": "መሰረታዊ እሴቶቻችን",
     "whySubtitle": "ለአፋር ህዝብ የምንሰጠውን አገልግሎት የሚመሩ መርሆዎች።",
@@ -81,7 +81,11 @@
     "usefulLinks": "ጠቃሚ ማገናኛዎች",
     "directorates": "ዳይሬክቶሬቶች",
     "followUs": "ይከተሉን",
-    "rights": "መብቱ በህግ የተጠበቀ ነው።"
+    "rights": "መብቱ በህግ የተጠበቀ ነው።",
+    "headOffice": "ዋና መስሪያ ቤት",
+    "headOfficeFallback": "ሰመራ፣ አፋር ክልል፣ ኢትዮጵያ",
+    "callUs": "ይደውሉልን",
+    "emailUs": "ኢሜይል ይላኩልን"
   },
   "common": {
     "loading": "በመጫን ላይ...",

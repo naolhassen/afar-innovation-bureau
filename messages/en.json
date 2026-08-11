@@ -1,10 +1,10 @@
 {
-  "siteName": "Afar Regional State Innovation and Technology Development Bureau",
+  "siteName": "Afar National Regional State Science Innovation and Technology Bureau",
   "siteNameShort": "Afar ITDB",
   "nav": {
     "home": "Home",
     "about": "About Us",
-    "sectors": "Sectors",
+    "sectors": "Services",
     "directorates": "Directorates",
     "news": "News",
     "events": "Events",
@@ -21,13 +21,13 @@
     "bureauHead": "Message from the Bureau Head",
     "heroBadge": "Digital Afar",
     "heroSubtitle": "Advancing innovation, technology, and digital services for the residents and institutions of the Afar Regional State.",
-    "statsSectors": "Sectors",
+    "statsSectors": "Services",
     "statsDirectorates": "Directorates",
     "statsNews": "News Updates",
     "statsGallery": "Gallery Moments",
     "sectorsBadge": "What We Do",
-    "sectorsTitle": "Our Sectors",
-    "sectorsSubtitle": "The Bureau operates through specialized sectors driving digital transformation across the region.",
+    "sectorsTitle": "Our Services",
+    "sectorsSubtitle": "The Bureau delivers specialized services driving digital transformation across the region.",
     "whyBadge": "Why Choose Us",
     "whyTitle": "Our Core Values",
     "whySubtitle": "The principles that guide every service we deliver to the people of Afar.",
@@ -81,7 +81,11 @@
     "usefulLinks": "Useful Links",
     "directorates": "Directorates",
     "followUs": "Follow Us",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "headOffice": "Head Office",
+    "headOfficeFallback": "Semera, Afar Region, Ethiopia",
+    "callUs": "Call Us",
+    "emailUs": "Email Us"
   },
   "common": {
     "loading": "Loading...",

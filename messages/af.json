@@ -1,10 +1,10 @@
 {
-  "siteName": "Qafar Biyaakuh Ummatih Dowlat Ineewaa kee Teknoolojii Ergiiysa Biiroo",
+  "siteName": "Qafar Agatih Rakaakayih Doolatak Science Innoveshin kee Teknolojih Biiro",
   "siteNameShort": "Qafar ITDB",
   "nav": {
     "home": "Xagana",
     "about": "Nanu",
-    "sectors": "Qandaarwaa",
+    "sectors": "Xaqbo",
     "directorates": "Waadi Adaawal",
     "news": "Warri",
     "events": "Uwwaadli",
@@ -21,13 +21,13 @@
     "bureauHead": "Biiro Amoyti Warqi",
     "heroBadge": "Dijital Qafar",
     "heroSubtitle": "Qafar Rakaakayih Ummattah kee Wakiiltah Ellecabo, Teknoolojii kee Dijital Xaqbo Horonuh.",
-    "statsSectors": "Qandaarwaa",
+    "statsSectors": "Xaqbo",
     "statsDirectorates": "Waadi Adaawal",
     "statsNews": "Warri",
     "statsGallery": "Sawaay Bakki",
     "sectorsBadge": "Ni Taama",
-    "sectorsTitle": "Ni Qandaarwaa",
-    "sectorsSubtitle": "Biiro Rakaakay Addal Dijital Tabaatabsi Horsiisan Qandaarwal Taamita.",
+    "sectorsTitle": "Ni Xaqbo",
+    "sectorsSubtitle": "Biiro Rakaakay Addal Dijital Tabaatabsi Horsiisan Xaqbo Yaceeh.",
     "whyBadge": "Macah Ni Doorittaanam",
     "whyTitle": "Ni Assaskih Migaq",
     "whySubtitle": "Qafar Ummattah Xaqbo Kah Ceelinnu Kalliyya.",
@@ -81,7 +81,11 @@
     "usefulLinks": "Xiqti Xagoyta",
     "directorates": "Waadi Adaawal",
     "followUs": "Nee Katic",
-    "rights": "Inkih migaaqi massa haysinta."
+    "rights": "Inkih migaaqi massa haysinta.",
+    "headOffice": "Waqdi Adda",
+    "headOfficeFallback": "Semera, Qafar Biyya, Itiyoophiya",
+    "callUs": "Nee Xagnisaay",
+    "emailUs": "Iimeelal Nee Rubaay"
   },
   "common": {
     "loading": "Xiqigiyya...",

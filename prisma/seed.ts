@@ -25,15 +25,24 @@ async function main() {
   if (!existingSettings) {
     await prisma.siteSetting.create({
       data: {
-        missionAf: "Afrih ummattah kee martinnu xagsi kah taniih, ilqiba tekno kee ineewaa lammu abinnaanih Qafar Biyaakuh ummattah xaqbo yaceey.",
-        missionAm: "የቴክኖሎጂ መሠረተ ልማትን በጥናትና ምርምር ላይ የተመሠረተ በማድረግ፣ ደህንነታቸው የተጠበቁ ስርዓቶችን በማጎልበት እና ዲጂታል አገልግሎቶችን በማስፋት የአፋር ክልል ነዋሪዎችና ጎብኝዎች ተጠቃሚ እንዲሆኑ ማድረግ።",
-        missionEn: "To ensure benefits for the residents and visitors of the Afar Regional State by developing information technology infrastructure grounded in study and research, enhancing secure systems, and expanding digital services.",
-        visionAf: "Sanat 2025y fanah ni tirtoyta ossoowaanamak, Qafar Biyaaku say-le, meqe-le kee cateyna-le tekno biyaaku akkuh fannaanamah rabbi kalah lin.",
-        visionAm: "በ2025 ዋና ትኩረቶቻችንን በመተግበር፣ ውጤታማ፣ በአግባቡ የሚተዳደር እና ቸልተኝነት የሌለበት ምላሽ ሰጪ የአፋር ክልል ለመፍጠር እናልማለን።",
-        visionEn: "By implementing our key priorities, we envision an Afar Regional State that is truly responsive to its residents — efficient, well-managed, and free from neglect.",
-        valuesAf: "Meqe niyya kee cakki-le ceelallo\nTeknoloji fayya-le taama\nCusa ellecabo abaanam\nHagaaray kee cateyna\nCasi-le tanim",
-        valuesAm: "መልካም ህሊና እና ታማኝነት\nየተራቀቀ ቴክኖሎጂ ተጠቃሚነት\nየፈጠራ ስራዎችን ማመንጨት\nትጋት እና ተግባቢነት\nተጠያቂነት",
-        valuesEn: "Good conscience and sincerity\nAdvanced utilization of technology\nGenerating innovations\nDedication and diligence\nAccountability, transparency and collaboration",
+        missionAf:
+          "Effektiivi-le teknoolojii warsiisak, doorsiisak, ellecabo horsiisak kee taamah gaceenamah cabiimu saynis kee teknoolojii horoyaay tabaatabsak rakaakay caddol xiqewaay.",
+        missionAm:
+          "ውጤታማ ቴክኖሎጂዎችን ማፈላላግ መምረጥ ማላማድ መፍጠርና መጠቀም የሚያስችል ሳይንስና ቴክኖሎጂ በማልማትና በማሸጋገር የክልሉን ዕድገት ማረጋገጥ።",
+        missionEn:
+          "To ensure the region's growth by developing and transferring science and technology that enables the search, selection, adaptation, creation, and use of effective technologies.",
+        visionAf:
+          "Xiinisso kee cuglisak duudusiime ineewaa teknoolojii daddossiiy askaasita, amaanat-le sistem horoysiiy dijitaal xaqbo massowak rakaakay ummattah cateynay xiqewaay.",
+        visionAm:
+          "በጥናትና ምርምር የተደገፈ የኢንፎርሜሽን ቴክኖሎጂ መሰረተ ልማቶችን በማልማትና ደህንነቱ የተጠበቀ ሲስተሞችን በማበልጸግ እና ዲጂታል አገልግሎት በማስፋፋት የክልሉን ማህበረሰብ ተጠቃሚነት ማረጋገጥ።",
+        visionEn:
+          "To ensure the benefit of the region's community by developing research- and study-based information technology infrastructure, strengthening secure systems, and expanding digital services.",
+        valuesAf:
+          "Cakki-le kalah\nXiinisso duudusiime ubla\nCusa cateyna horsiisa\nUmmattah xaqbi le tanim\nCasi-le teknoolojii cateynay\nQusba ellecabo daddosa\nTaama kalah kee dudda\nMassaqaltinnu",
+        valuesAm:
+          "ቀናነት\nጥልቅ ምልከታ\nልዩነት መፍጠር\nአገልጋይነት\nየላቀ የቴክኖሎጂ ተጠቃሚነት\nአዳዲስ ፈጠራዎችን ማመንጨት\nየስራ ፍቅርና ትጋት\nተጠያቂነት",
+        valuesEn:
+          "Integrity\nDeep insight\nCreating distinction\nService orientation\nAdvanced technology utilization\nGenerating new innovations\nDedication and diligence\nAccountability",
         historyAf: "Qafar Biyaakuh Ineewaa kee Teknoolojii Ergiiysa Biiro ellecabo kee tekno horoya-le xaqli abaanamih xagana.",
         historyAm: "የአፋር ክልል ኢንፎርሜሽንና ቴክኖሎጂ ልማት ቢሮ ቴክኖሎጂ ላይ የተመሰረቱ አገልግሎቶችን ለክልሉ ነዋሪዎች ለማቅረብ ተመሠረተ።",
         historyEn: "The Afar Regional State Innovation and Technology Development Bureau was established to provide technology-driven services to the region's residents and institutions.",
@@ -251,33 +260,61 @@ async function main() {
       data: [
         {
           order: 1,
-          nameAf: "Ineewaa Amaanat Waadi",
-          nameAm: "የኢንፎርሜሽን ደህንነት ዳይሬክቶሬት",
-          nameEn: "Information System Security Directorate",
+          nameAf: "Sayber Amnih Xayrektoreet",
+          nameAm: "የሳይበር ደህንነት ዳይሬክቶሬት",
+          nameEn: "Cyber Security Directorate",
+          descriptionAf:
+            "Agat Caddol Dafesen Boliisitte Kee Amrittek Ugut Abak Rakaakay Doolat Kee Kalah Tan Faxximta Institutionitte Sayber Amni Dacayrih Taama Miraacisak, Koobaahisak Abinosaanam Kinnim Qaddoosen.",
+          descriptionAm:
+            "የዳይሬክቶሬቱ ዋና ኃላፊነት የክልሉን የመንግስት እና ሌሎች ወሳኝ ተቋማትን የሳይበር ደህንነት ጥበቃ በብሔራዊ ደረጃ የተቀመጡ ፖሊሲዎች፣ አዋጆች እና መመሪያዎች መሰረት በማድረግ መምራት፣ ማስተባበር እና ማስፈፀም ነው።",
+          descriptionEn:
+            "This directorate's main job is to oversee, coordinate, and enforce cybersecurity for the government's departments and other important institutions, following the nation's policies, proclamations, and guidelines.",
         },
         {
           order: 2,
-          nameAf: "Deetaa Buqre kee Cloud Waadi",
-          nameAm: "የመረጃ ማዕከል እና ክላውድ ዳይሬክቶሬት",
-          nameEn: "Data Center and Cloud Directorate",
+          nameAf: "Qusbaamih hadal kee teknoloojih qimbo dariifa wagittaamal tabaatabsa kee qokol xayrektereet",
+          nameAm: "የኢኖቬሽንና ቴክኖሎጂ ስታርትፕ ስነ ምህዳር ሽግግርና ድጋፍ ዳይሬክቶሬት",
+          nameEn: "Directorate of Innovation and Technology Start-up Ecosystem Transition and Support",
+          descriptionAf:
+            "teknoloojih tatrusso jaamiqatittek, kusaq xisoosa, interpiraayizittee kee iroh waklentit inxastari fan, doolat xisoosa kee qimmo kampaanitte fan, oggol luddittel kee tellemmo gexsititte, kee miraacisak tabaatabsi gexsit wagittaamal fidga beyak qusbaamih ixxiga Daddos kee qidaddo xalootitte.",
+          descriptionAm:
+            "የዳይሬክቶሬቱ ዋና ኃላፊነት ከዩኒቨርሲቲዎች፣ ከምርምር ተቋማት፣ ከኢንተርፕራይዞች እና ከውጭ አጋሮች የሚመጡ ቴክኖሎጂዎችን ወደ ኢንዱስትሪዎች፣ መንግሥታዊ ተቋማት እና ጀማሪ ኩባንያዎች እንዲተላለፉ በማድረግ፣ መቀበል፣ ማላማድ እና ለገበያ ማዋል ሂደቶችን በማመቻቸት የሚፈጥሩትን ፈጠራ፣ ዕውቀትና የቴክኖሎጂ መፍትሄዎች በመውሰድ፣ ወደ ተግባራዊ ልማትና ኢኮኖሚያዊ ውጤት እንዲያመጡ የሽግግር ሂደቱን መምራት ነው።",
+          descriptionEn:
+            "This directorate mainly leads the process of moving technologies from universities, research institutes, companies, and foreign partners to industries, government bodies, and startups. They help adopt, adapt, and commercialize these technologies, turning innovations and knowledge into practical developments and economic results.",
         },
         {
           order: 3,
-          nameAf: "Ineewaa Taama kee Waarssa Waadi",
-          nameAm: "የኢንፎርሜሽን ቴክኖሎጂ ኦፕሬሽንና ጥገና ዳይሬክቶሬት",
-          nameEn: "Information Technology Operation and Maintenance Directorate",
+          nameAf: "Xiytalayzeeshin Ayfaf kee Assabalta Daddosih Xayrektoreet",
+          nameAm: "ዲጂታላይዜሽን አገልግሎት እና አፕልኬሽን ልማት ዳይሬክቶሬት",
+          nameEn: "Digitalization Service and Application Development Directorate",
+          descriptionAf: "Rakaakayal Xijitaal Teknoloojih Calli Ekraarisak Abinosa.",
+          descriptionAm: "የዳይሬክቶሬቱ ዋና ኃላፊነት በክልሉ ውስጥ ዲጂታል የቴክኖሎጂ መፍትሄዎችን በማቀድና በመምራት ወደ ተግባር ይለውጣል።",
+          descriptionEn:
+            "The main role here is to plan and manage digital technology solutions in the region and make them happen.",
         },
         {
           order: 4,
-          nameAf: "Ineewaa Horoya kee Qelisa Waadi",
-          nameAm: "የኢንፎርሜሽን ቴክኖሎጂ መሠረተ ልማት ግንባታና ዲዛይን ዳይሬክቶሬት",
-          nameEn: "Information Technology Infrastructure Development and Design Directorate",
+          nameAf: "Doolatak Ecote Network kee Infrastructure Xizaayin kee Konstrukshin Xayrektoreet",
+          nameAm: "የመንግስት ኢኮቴ ኔትወርክና መሰረተ ልማት ዲዛይንና ግንባታ ዳይሬክቶሬት",
+          nameEn: "Directorate of State ICT Network and Infrastructure Design and Construction",
+          descriptionAf:
+            "Rakaakay Teknolojih Dudda Diggoosaanam Kee Qasri Dijital Tabaatabsih Tadeerah Uguugus Akah Yayfoofen Innah Abak Geytiman Exxa Kinnim Qaddoosen.",
+          descriptionAm:
+            "የዳይሬክቶሬቱ ዋና ኃላፊነት የክልሉን የቴክኖሎጂ አቅም ለማጠናከርና ለዘመናዊ የዲጂታል ለውጥ መርሃ ግብር መሠረት ለመፍጠር የሚያገለግል ቁልፍ ክፍል ነው።",
+          descriptionEn:
+            "This is a key department focused on boosting the region's tech capacity and forming the foundation for a modern digital transformation program.",
         },
         {
           order: 5,
-          nameAf: "Software kee Platform Horoya Waadi",
-          nameAm: "የሶፍትዌር እና ፕላትፎርም ልማት ዳይሬክቶሬት",
-          nameEn: "Software and Platform Development Directorate",
+          nameAf: "Elektiromekanikaal Silaacitte Dambiyoo kee Asqassaabe Xayrektereet",
+          nameAm: "የኤሌክትሮ መካኒክ መሳሪያዎች ጥገናና እድሳት ዳይሬክቶሬት",
+          nameEn: "Directorate of Maintenance and Renovation of Electromechanical Equipment",
+          descriptionAf:
+            "Rakaakayak Teknolojih Dudda Maqarroosaanam kee Qasri Industirih Uguugus Teknolojih Tabaatabsa Bicisoonuh Masquliyyat Le.",
+          descriptionAm:
+            "የክልሉን የቴክኖሎጂ አቅም ለማጠናከርና በዘመናዊው የኢንዱስትሪ አብዮት ውስጥ የኤሌክትሮ መካኒክ ጥገና ክፍል የማሽኖችን ደህንነት ከመጠበቅ ባለፈ የቴክኖሎጂ ሽግግርን የማቀላጠፍ ከፍተኛ ኃላፊነት አለበት።",
+          descriptionEn:
+            "To strengthen the region's tech capacity in today's industrial era, this department not only keeps machines safe and running but also helps with technology transfer.",
         },
       ],
     });

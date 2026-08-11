@@ -9,12 +9,12 @@ export default async function AdminSectorsPage() {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-emerald-900">Sectors</h1>
+        <h1 className="text-2xl font-bold text-emerald-900">Services</h1>
         <Link
           href="/admin/sectors/new"
           className="flex items-center gap-2 rounded-full bg-emerald-800 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-900"
         >
-          <Plus size={16} /> New Sector
+          <Plus size={16} /> New Service
         </Link>
       </div>
 
@@ -53,7 +53,7 @@ export default async function AdminSectorsPage() {
             ))}
             {sectors.length === 0 && (
               <tr>
-                <td colSpan={3} className="px-4 py-6 text-center text-zinc-500">No sectors yet.</td>
+                <td colSpan={3} className="px-4 py-6 text-center text-zinc-500">No services yet.</td>
               </tr>
             )}
           </tbody>

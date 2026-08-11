@@ -23,7 +23,7 @@ const navItems = [
   { href: "/admin/events", label: "Events", icon: CalendarDays },
   { href: "/admin/publications", label: "Publications", icon: FileText },
   { href: "/admin/gallery", label: "Gallery", icon: Images },
-  { href: "/admin/sectors", label: "Sectors", icon: Layers },
+  { href: "/admin/sectors", label: "Services", icon: Layers },
   { href: "/admin/directorates", label: "Directorates", icon: Building2 },
   { href: "/admin/faq", label: "FAQs", icon: HelpCircle },
   { href: "/admin/messages", label: "Messages", icon: Mail },

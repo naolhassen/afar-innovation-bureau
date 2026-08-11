@@ -22,7 +22,7 @@ export default function SectorForm({
 
       <TrilingualField
         baseName="name"
-        label="Sector Name"
+        label="Service Name"
         required
         defaultValues={{ af: sector?.nameAf, am: sector?.nameAm, en: sector?.nameEn }}
       />
