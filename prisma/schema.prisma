@@ -79,13 +79,19 @@ model Publication {
   updatedAt    DateTime  @updatedAt
 }
 
+enum MediaType {
+  IMAGE
+  VIDEO
+}
+
 model GalleryItem {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   titleAf     String?
   titleAm     String?
   titleEn     String?
   imageUrl    String
-  createdAt   DateTime @default(now())
+  type        MediaType @default(IMAGE)
+  createdAt   DateTime  @default(now())
 }
 
 model Sector {

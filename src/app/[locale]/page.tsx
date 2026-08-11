@@ -136,22 +136,14 @@ export default async function HomePage({
                   className="object-cover"
                 />
               </div>
-              <div className="absolute -bottom-8 -right-8 h-40 w-40 overflow-hidden rounded-2xl shadow-2xl ring-4 ring-white sm:h-48 sm:w-48">
+              <div className="absolute -bottom-6 -right-6 h-28 w-28 overflow-hidden rounded-2xl shadow-2xl ring-4 ring-white sm:h-32 sm:w-32">
                 <Image
                   src="/uploads/gallery/763895322_1701124831144143_4555610229383186169_n.jpg"
                   alt={t("home.aboutTitle")}
                   fill
-                  sizes="12rem"
+                  sizes="8rem"
                   className="object-cover"
                 />
-              </div>
-              <div className="cg-gradient-btn absolute -bottom-6 left-0 rounded-xl px-5 py-4 text-white shadow-lg shadow-blue-900/30">
-                <p className="text-2xl font-extrabold">
-                  <AnimatedCounter value={directorateCount} />+
-                </p>
-                <p className="mt-0.5 text-[11px] uppercase tracking-wide text-white/80">
-                  {t("home.aboutStatLabel")}
-                </p>
               </div>
             </div>
           </Reveal>
@@ -187,9 +179,17 @@ export default async function HomePage({
 
       {/* Text carousel - core values */}
       {values.length > 0 && (
-        <section className="cg-dark relative isolate overflow-hidden">
+        <section className="cg-dark relative isolate overflow-hidden py-16">
           <div className="cg-grid-pattern pointer-events-none absolute inset-0 opacity-50" />
-          <TextMarquee items={values} />
+          <div className="relative z-10 mx-auto max-w-2xl px-4 text-center">
+            <span className="cg-eyebrow text-blue-400">{t("home.whyBadge")}</span>
+            <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
+              {t("home.whyTitle")}
+            </h2>
+          </div>
+          <div className="relative z-10 mt-10">
+            <TextMarquee items={values} />
+          </div>
         </section>
       )}
 

@@ -38,12 +38,14 @@ export function StaggerGroup({
 export function StaggerItem({
   children,
   className,
+  onClick,
 }: {
   children: ReactNode;
   className?: string;
+  onClick?: () => void;
 }) {
   return (
-    <motion.div className={className} variants={item}>
+    <motion.div className={className} variants={item} onClick={onClick}>
       {children}
     </motion.div>
   );

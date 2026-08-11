@@ -6,10 +6,12 @@ import { revalidatePath } from "next/cache";
 export async function createGalleryItem(formData: FormData) {
   const imageUrl = String(formData.get("imageUrl") ?? "");
   if (!imageUrl) return;
+  const type = String(formData.get("type") ?? "IMAGE") === "VIDEO" ? "VIDEO" : "IMAGE";
 
   await prisma.galleryItem.create({
     data: {
       imageUrl,
+      type,
       titleAf: String(formData.get("titleAf") ?? "") || null,
       titleAm: String(formData.get("titleAm") ?? "") || null,
       titleEn: String(formData.get("titleEn") ?? "") || null,

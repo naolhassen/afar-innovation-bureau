@@ -98,6 +98,11 @@
     "callUs": "Nee Xagnisaay",
     "emailUs": "Iimeelal Nee Rubaay"
   },
+  "gallery": {
+    "all": "Inkih",
+    "photos": "Sawaay",
+    "videos": "Vidiyootitte"
+  },
   "common": {
     "loading": "Xiqigiyya...",
     "noResults": "Ma't gexe wagitto.",

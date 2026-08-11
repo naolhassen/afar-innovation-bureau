@@ -98,6 +98,11 @@
     "callUs": "ይደውሉልን",
     "emailUs": "ኢሜይል ይላኩልን"
   },
+  "gallery": {
+    "all": "ሁሉም",
+    "photos": "ፎቶዎች",
+    "videos": "ቪዲዮዎች"
+  },
   "common": {
     "loading": "በመጫን ላይ...",
     "noResults": "ምንም ውጤት አልተገኘም።",

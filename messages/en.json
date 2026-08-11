@@ -103,6 +103,11 @@
     "noResults": "No results found.",
     "back": "Back"
   },
+  "gallery": {
+    "all": "All",
+    "photos": "Photos",
+    "videos": "Videos"
+  },
   "admin": {
     "login": "Admin Login",
     "email": "Email",
