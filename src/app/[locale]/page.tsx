@@ -88,25 +88,22 @@ export default async function HomePage({
         <div className="pointer-events-none absolute -right-40 top-0 z-10 h-[28rem] w-[28rem] animate-float rounded-full bg-blue-500/10 blur-[110px]" />
         <div className="pointer-events-none absolute -bottom-40 -left-24 z-10 h-96 w-96 animate-float-slow rounded-full bg-purple-600/10 blur-[110px]" />
 
-        <div className="relative z-20 mx-auto flex w-full max-w-4xl flex-col items-center px-4 py-20 text-center">
-          <Reveal direction="up" className="relative flex w-full flex-col items-center">
-            <Reveal
-              direction="scale"
-              className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center opacity-25"
-            >
-              <HeroVisual src="/logo.png" alt={t("siteNameShort")} />
-            </Reveal>
+        <div className="relative z-20 mx-auto flex w-full max-w-4xl flex-col items-center px-4 pb-16 pt-32 text-center sm:pt-40">
+          <Reveal direction="scale" className="relative z-10">
+            <HeroVisual src="/logo.png" alt={t("siteNameShort")} />
+          </Reveal>
 
-            <h1 className="relative z-10 text-4xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <Reveal direction="up" delay={0.1} className="relative z-10 mt-9 flex w-full flex-col items-center">
+            <h1 className="max-w-xl whitespace-pre-line text-2xl font-extrabold leading-[1.2] tracking-tight text-white sm:text-3xl lg:text-4xl">
               {t("siteName")}
             </h1>
-            <p className="relative z-10 mt-5 max-w-xl text-base leading-relaxed text-white/70">
+            <p className="mt-4 max-w-lg text-sm leading-relaxed text-white/70">
               {t("home.heroSubtitle")}
             </p>
           </Reveal>
 
-          <Reveal direction="up" delay={0.1} className="relative z-10 flex w-full flex-col items-center">
-            <div className="mt-9 flex flex-wrap justify-center gap-3">
+          <Reveal direction="up" delay={0.2} className="relative z-10 flex w-full flex-col items-center">
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link
                 href="/contact"
                 className="cg-gradient-btn inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-900/40 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-500/40"
@@ -119,19 +116,6 @@ export default async function HomePage({
               >
                 {t("hero.cta")}
               </Link>
-            </div>
-
-            <div className="mt-12 grid w-full max-w-lg grid-cols-3 gap-4 border-t border-white/10 pt-7">
-              {stats.slice(0, 3).map((s) => (
-                <div key={s.label}>
-                  <p className="text-2xl font-extrabold text-white">
-                    <AnimatedCounter value={s.value} />+
-                  </p>
-                  <p className="mt-1 text-[11px] uppercase tracking-wide text-white/45">
-                    {s.label}
-                  </p>
-                </div>
-              ))}
             </div>
           </Reveal>
         </div>

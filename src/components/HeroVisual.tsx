@@ -48,7 +48,7 @@ export default function HeroVisual({
     >
       <motion.div
         style={{ rotateX, rotateY }}
-        className="relative h-64 w-64 sm:h-80 sm:w-80"
+        className="relative h-52 w-52 sm:h-64 sm:w-64"
       >
         <motion.div
           animate={{ rotate: 360 }}
