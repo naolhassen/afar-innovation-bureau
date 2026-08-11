@@ -193,46 +193,21 @@ export default async function HomePage({
         </section>
       )}
 
-      {/* Stats counter strip */}
-      <section className="cg-dark relative isolate overflow-hidden">
-        <div className="cg-grid-pattern pointer-events-none absolute inset-0 opacity-40" />
-        <div className="pointer-events-none absolute -right-24 top-0 h-72 w-72 animate-float rounded-full bg-blue-600/20 blur-[100px]" />
-        <div className="pointer-events-none absolute -left-24 bottom-0 h-72 w-72 animate-float-slow rounded-full bg-purple-600/20 blur-[100px]" />
-        <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-2 gap-8 px-4 py-16 sm:grid-cols-4">
-          {stats.map((s) => {
-            const Icon = s.icon;
-            return (
-              <Reveal key={s.label} direction="up" className="flex flex-col items-center text-center">
-                <span className="cg-gradient-btn flex h-14 w-14 items-center justify-center rounded-full text-white shadow-lg shadow-blue-900/30">
-                  <Icon size={22} />
-                </span>
-                <p className="mt-4 text-3xl font-extrabold text-white sm:text-4xl">
-                  <AnimatedCounter value={s.value} />+
-                </p>
-                <p className="mt-1 text-xs font-medium uppercase tracking-wide text-white/50">
-                  {s.label}
-                </p>
-              </Reveal>
-            );
-          })}
-        </div>
-      </section>
-
       {/* Stats + mission checklist */}
       {settings && (
         <section className="relative overflow-hidden border-t border-zinc-100 bg-zinc-50 text-zinc-900">
           <div className="cg-grid-pattern-dark pointer-events-none absolute inset-0" />
           <div className="pointer-events-none absolute -left-32 top-1/3 h-72 w-72 rounded-full bg-blue-300/20 blur-[100px]" />
-          <div className="relative mx-auto max-w-3xl px-4 py-20 text-center">
-            <Reveal>
-              <span className="cg-eyebrow justify-center text-blue-600">
+          <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 py-20 lg:grid-cols-2">
+            <Reveal direction="right">
+              <span className="cg-eyebrow text-blue-600">
                 {t("home.whyBadge")}
               </span>
               <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">
                 {t("home.whyTitle")}
               </h2>
               <p className="mt-3 text-sm text-zinc-500">{t("home.whySubtitle")}</p>
-              <StaggerGroup className="mt-6 grid grid-cols-1 gap-3 text-left sm:grid-cols-2">
+              <StaggerGroup className="mt-6 space-y-3">
                 {values.map((v) => (
                   <StaggerItem key={v} className="flex items-start gap-3">
                     <CheckCircle2 className="mt-0.5 shrink-0 text-blue-600" size={18} />
@@ -246,6 +221,22 @@ export default async function HomePage({
               >
                 {t("hero.cta")} <ArrowRight size={15} />
               </Link>
+            </Reveal>
+            <Reveal direction="left" delay={0.1} className="grid grid-cols-2 gap-4">
+              {stats.map((s) => {
+                const Icon = s.icon;
+                return (
+                  <div key={s.label} className="cg-card rounded-2xl p-6">
+                    <span className="cg-gradient-btn flex h-10 w-10 items-center justify-center rounded-full text-white">
+                      <Icon size={18} />
+                    </span>
+                    <p className="mt-4 text-2xl font-extrabold text-zinc-900">
+                      <AnimatedCounter value={s.value} />+
+                    </p>
+                    <p className="mt-1 text-xs font-medium text-zinc-400">{s.label}</p>
+                  </div>
+                );
+              })}
             </Reveal>
           </div>
         </section>
@@ -289,9 +280,9 @@ export default async function HomePage({
                     </p>
                     <Link
                       href="/sectors"
-                      className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-blue-600 transition-colors group-hover:text-blue-800"
+                      className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-blue-600 opacity-0 transition-opacity group-hover:opacity-100"
                     >
-                      {t("home.viewAll")} <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-1" />
+                      {t("home.viewAll")} <ArrowUpRight size={14} />
                     </Link>
                   </StaggerItem>
                 );
