@@ -149,3 +149,12 @@ body {
 .animate-cg-scan {
   animation: cg-scan 7s linear infinite;
 }
+
+@keyframes cg-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-cg-marquee {
+  animation: cg-marquee 22s linear infinite;
+}

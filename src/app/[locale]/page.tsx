@@ -26,6 +26,7 @@ import { StaggerGroup, StaggerItem } from "@/components/StaggerGroup";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import HeroVisual from "@/components/HeroVisual";
 import HeroBackground from "@/components/HeroBackground";
+import TextMarquee from "@/components/TextMarquee";
 
 const sectorIcons = [Cpu, Globe2, ShieldCheck, Layers, Sparkles, Building2];
 
@@ -81,21 +82,31 @@ export default async function HomePage({
   return (
     <div className="bg-white">
       {/* Hero */}
-      <section className="relative isolate overflow-hidden text-white">
+      <section className="relative isolate flex min-h-screen items-center overflow-hidden pt-24 text-white lg:pt-28">
         <HeroBackground videoSrc="/video/hero-bg.mp4" posterSrc="/images/hero-bg.jpg" />
         <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent" />
         <div className="pointer-events-none absolute -right-40 top-0 z-10 h-[28rem] w-[28rem] animate-float rounded-full bg-blue-500/10 blur-[110px]" />
         <div className="pointer-events-none absolute -bottom-40 -left-24 z-10 h-96 w-96 animate-float-slow rounded-full bg-purple-600/10 blur-[110px]" />
 
-        <div className="relative z-20 mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 pb-28 pt-40 lg:grid-cols-2 lg:pb-32 lg:pt-44">
-          <Reveal direction="right">
-            <h1 className="text-4xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">
+        <div className="relative z-20 mx-auto flex w-full max-w-4xl flex-col items-center px-4 py-20 text-center">
+          <Reveal direction="up" className="relative flex w-full flex-col items-center">
+            <Reveal
+              direction="scale"
+              className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center opacity-25"
+            >
+              <HeroVisual src="/logo.png" alt={t("siteNameShort")} />
+            </Reveal>
+
+            <h1 className="relative z-10 text-4xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">
               {t("siteName")}
             </h1>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-white/70">
+            <p className="relative z-10 mt-5 max-w-xl text-base leading-relaxed text-white/70">
               {t("home.heroSubtitle")}
             </p>
-            <div className="mt-9 flex flex-wrap gap-3">
+          </Reveal>
+
+          <Reveal direction="up" delay={0.1} className="relative z-10 flex w-full flex-col items-center">
+            <div className="mt-9 flex flex-wrap justify-center gap-3">
               <Link
                 href="/contact"
                 className="cg-gradient-btn inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-900/40 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-500/40"
@@ -110,7 +121,7 @@ export default async function HomePage({
               </Link>
             </div>
 
-            <div className="mt-12 grid max-w-lg grid-cols-3 gap-4 border-t border-white/10 pt-7">
+            <div className="mt-12 grid w-full max-w-lg grid-cols-3 gap-4 border-t border-white/10 pt-7">
               {stats.slice(0, 3).map((s) => (
                 <div key={s.label}>
                   <p className="text-2xl font-extrabold text-white">
@@ -123,12 +134,80 @@ export default async function HomePage({
               ))}
             </div>
           </Reveal>
+        </div>
+      </section>
+
+      {/* About / who we are */}
+      <section className="relative overflow-hidden border-t border-zinc-100 bg-white px-4 py-20 text-zinc-900">
+        <div className="cg-dot-pattern pointer-events-none absolute left-0 top-10 h-40 w-56 opacity-40" />
+        <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 lg:grid-cols-2">
+          <Reveal direction="right">
+            <div className="relative mx-auto max-w-md">
+              <div className="relative h-72 w-full overflow-hidden rounded-2xl shadow-xl sm:h-80">
+                <Image
+                  src="/uploads/gallery/504933020_4137395696507419_510841312649536551_n.jpg"
+                  alt={t("home.aboutTitle")}
+                  fill
+                  sizes="(min-width: 1024px) 24rem, 80vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="absolute -bottom-8 -right-8 h-40 w-40 overflow-hidden rounded-2xl shadow-2xl ring-4 ring-white sm:h-48 sm:w-48">
+                <Image
+                  src="/uploads/gallery/763895322_1701124831144143_4555610229383186169_n.jpg"
+                  alt={t("home.aboutTitle")}
+                  fill
+                  sizes="12rem"
+                  className="object-cover"
+                />
+              </div>
+              <div className="cg-gradient-btn absolute -bottom-6 left-0 rounded-xl px-5 py-4 text-white shadow-lg shadow-blue-900/30">
+                <p className="text-2xl font-extrabold">
+                  <AnimatedCounter value={directorateCount} />+
+                </p>
+                <p className="mt-0.5 text-[11px] uppercase tracking-wide text-white/80">
+                  {t("home.aboutStatLabel")}
+                </p>
+              </div>
+            </div>
+          </Reveal>
 
           <Reveal direction="left" delay={0.1}>
-            <HeroVisual src="/logo.png" alt={t("siteNameShort")} />
+            <span className="cg-eyebrow text-blue-600">{t("home.aboutBadge")}</span>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">
+              {t("home.aboutTitle")}
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed text-zinc-500">{t("home.aboutText")}</p>
+            <StaggerGroup className="mt-6 space-y-3">
+              {[
+                t("home.aboutPoint1"),
+                t("home.aboutPoint2"),
+                t("home.aboutPoint3"),
+                t("home.aboutPoint4"),
+              ].map((point) => (
+                <StaggerItem key={point} className="flex items-start gap-3">
+                  <CheckCircle2 className="mt-0.5 shrink-0 text-blue-600" size={18} />
+                  <span className="text-sm text-zinc-700">{point}</span>
+                </StaggerItem>
+              ))}
+            </StaggerGroup>
+            <Link
+              href="/about"
+              className="cg-gradient-btn mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-blue-500/30"
+            >
+              {t("home.aboutCta")} <ArrowRight size={15} />
+            </Link>
           </Reveal>
         </div>
       </section>
+
+      {/* Text carousel - core values */}
+      {values.length > 0 && (
+        <section className="cg-dark relative isolate overflow-hidden">
+          <div className="cg-grid-pattern pointer-events-none absolute inset-0 opacity-50" />
+          <TextMarquee items={values} />
+        </section>
+      )}
 
       {/* Stats + mission checklist */}
       {settings && (

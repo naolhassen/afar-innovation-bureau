@@ -52,7 +52,16 @@
     "processStep3Text": "Receive feedback, support, or the service you requested from the Bureau.",
     "callUsTitle": "Need Direct Assistance?",
     "callUsSubtitle": "Speak with our team for guidance on any of our services.",
-    "callUsLabel": "Call Us Now"
+    "callUsLabel": "Call Us Now",
+    "aboutBadge": "Who We Are",
+    "aboutTitle": "Driving Afar's Digital Transformation",
+    "aboutText": "For over a decade, the Bureau has been building secure digital infrastructure, empowering innovation, and delivering technology-driven services that connect every corner of the Afar Region \u2014 from government offices to remote communities.",
+    "aboutPoint1": "Secure, scalable ICT infrastructure across the region",
+    "aboutPoint2": "Innovation and start-up ecosystem support",
+    "aboutPoint3": "Digitalized public services for every resident",
+    "aboutPoint4": "Skilled directorates dedicated to your success",
+    "aboutCta": "Learn About Us",
+    "aboutStatLabel": "Active Directorates"
   },
   "about": {
     "title": "About Us",

@@ -52,7 +52,16 @@
     "processStep3Text": "Biiro Esserten Ellecabo, Cato Hinnay Xaqbo Geytaanam.",
     "callUsTitle": "Cato Litinnaa?",
     "callUsSubtitle": "Xaqbi Kalinnah Ni Buxak Warac.",
-    "callUsLabel": "Nee Xagnisaay"
+    "callUsLabel": "Nee Xagnisaay",
+    "aboutBadge": "Ni Way Kinnino",
+    "aboutTitle": "Qafar Dijital Tabaatabsi Horsiisak",
+    "aboutText": "Biiro Tabba Sanatiiy Fanah Amaanat-le kee Ballaqoyta-le ICT Daddos Beyaay, Ellecabo Cateynaay, Doolat Wakiiltak Fanah Baditto Ummattah Fanah Rakaakay Inkih Sittacisa Teknoloji-le Xaqbo Yaceeh.",
+    "aboutPoint1": "Amaanat-le kee Ballaqoyta-le ICT Daddos Rakaakay Inkih",
+    "aboutPoint2": "Ellecabo kee Startup Ecosystem Cato",
+    "aboutPoint3": "Ummat Inkih Dijital Xaqbo",
+    "aboutPoint4": "Ni Affoofannaah Cateeh Waadi Adaawal",
+    "aboutCta": "Biiro Ubla",
+    "aboutStatLabel": "Taama-le Waadi Adaawal"
   },
   "about": {
     "title": "Nanu",
