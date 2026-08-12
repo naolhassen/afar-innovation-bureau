@@ -12,23 +12,21 @@ import {
   CheckCircle2,
   Layers,
   Building2,
-  Newspaper,
-  Images,
   ShieldCheck,
   Cpu,
   Globe2,
   Sparkles,
   Phone,
 } from "lucide-react";
-import type { Sector, News, Event, Publication } from "@/generated/prisma/client";
+import type { Sector, News, Event, Publication, Directorate } from "@/generated/prisma/client";
 import Reveal from "@/components/Reveal";
 import { StaggerGroup, StaggerItem } from "@/components/StaggerGroup";
-import AnimatedCounter from "@/components/AnimatedCounter";
 import HeroVisual from "@/components/HeroVisual";
 import HeroBackground from "@/components/HeroBackground";
 import TextMarquee from "@/components/TextMarquee";
 
 const sectorIcons = [Cpu, Globe2, ShieldCheck, Layers, Sparkles, Building2];
+const directorateIcons = [Building2, Cpu, Globe2, ShieldCheck, Layers];
 
 export default async function HomePage({
   params,
@@ -40,14 +38,17 @@ export default async function HomePage({
   const l = locale as Locale;
   const t = await getTranslations();
 
-  const [settings, sectors, news, events, publications, sectorCount, directorateCount, galleryCount, newsCount] =
+  const [settings, sectors, directorates, news, events, publications] =
     await Promise.all([
       prisma.siteSetting.findFirst().catch(() => null),
       prisma.sector.findMany({ orderBy: { order: "asc" }, take: 6 }).catch((): Sector[] => []),
+      prisma.directorate
+        .findMany({ orderBy: { order: "asc" }, take: 5 })
+        .catch((): Directorate[] => []),
       prisma.news.findMany({
         where: { published: true },
         orderBy: { publishedAt: "desc" },
-        take: 3,
+        take: 6,
       }).catch((): News[] => []),
       prisma.event.findMany({
         where: { published: true, startDate: { gte: new Date() } },
@@ -59,10 +60,6 @@ export default async function HomePage({
         orderBy: { createdAt: "desc" },
         take: 4,
       }).catch((): Publication[] => []),
-      prisma.sector.count().catch(() => 0),
-      prisma.directorate.count().catch(() => 0),
-      prisma.galleryItem.count().catch(() => 0),
-      prisma.news.count().catch(() => 0),
     ]);
 
   const values = settings
@@ -71,13 +68,6 @@ export default async function HomePage({
         .map((v) => v.trim())
         .filter(Boolean)
     : [];
-
-  const stats = [
-    { label: t("home.statsSectors"), value: sectorCount, icon: Layers },
-    { label: t("home.statsDirectorates"), value: directorateCount, icon: Building2 },
-    { label: t("home.statsNews"), value: newsCount, icon: Newspaper },
-    { label: t("home.statsGallery"), value: galleryCount, icon: Images },
-  ];
 
   return (
     <div className="bg-white">
@@ -193,55 +183,6 @@ export default async function HomePage({
         </section>
       )}
 
-      {/* Stats + mission checklist */}
-      {settings && (
-        <section className="relative overflow-hidden border-t border-zinc-100 bg-zinc-50 text-zinc-900">
-          <div className="cg-grid-pattern-dark pointer-events-none absolute inset-0" />
-          <div className="pointer-events-none absolute -left-32 top-1/3 h-72 w-72 rounded-full bg-blue-300/20 blur-[100px]" />
-          <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 py-20 lg:grid-cols-2">
-            <Reveal direction="right">
-              <span className="cg-eyebrow text-blue-600">
-                {t("home.whyBadge")}
-              </span>
-              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">
-                {t("home.whyTitle")}
-              </h2>
-              <p className="mt-3 text-sm text-zinc-500">{t("home.whySubtitle")}</p>
-              <StaggerGroup className="mt-6 space-y-3">
-                {values.map((v) => (
-                  <StaggerItem key={v} className="flex items-start gap-3">
-                    <CheckCircle2 className="mt-0.5 shrink-0 text-blue-600" size={18} />
-                    <span className="text-sm text-zinc-700">{v}</span>
-                  </StaggerItem>
-                ))}
-              </StaggerGroup>
-              <Link
-                href="/about"
-                className="cg-gradient-btn mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-blue-500/30"
-              >
-                {t("hero.cta")} <ArrowRight size={15} />
-              </Link>
-            </Reveal>
-            <Reveal direction="left" delay={0.1} className="grid grid-cols-2 gap-4">
-              {stats.map((s) => {
-                const Icon = s.icon;
-                return (
-                  <div key={s.label} className="cg-card rounded-2xl p-6">
-                    <span className="cg-gradient-btn flex h-10 w-10 items-center justify-center rounded-full text-white">
-                      <Icon size={18} />
-                    </span>
-                    <p className="mt-4 text-2xl font-extrabold text-zinc-900">
-                      <AnimatedCounter value={s.value} />+
-                    </p>
-                    <p className="mt-1 text-xs font-medium text-zinc-400">{s.label}</p>
-                  </div>
-                );
-              })}
-            </Reveal>
-          </div>
-        </section>
-      )}
-
       {/* Sectors / Services */}
       {sectors.length > 0 && (
         <section className="relative overflow-hidden border-t border-zinc-100 bg-white px-4 py-20 text-zinc-900">
@@ -263,31 +204,61 @@ export default async function HomePage({
                 return (
                   <StaggerItem
                     key={s.id}
-                    className="cg-card group relative overflow-hidden rounded-2xl p-7 transition-all duration-300 hover:-translate-y-2 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-500/10"
+                    className="group relative flex min-h-[16rem] flex-col overflow-hidden rounded-2xl border border-zinc-100 bg-white p-7 shadow-sm transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-blue-900/15"
                   >
-                    <span className="cg-gradient-btn absolute inset-x-0 top-0 h-1 origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
-                    <span className="cg-gradient-btn flex h-14 w-14 items-center justify-center rounded-2xl text-white shadow-lg shadow-blue-500/25 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
-                      <Icon size={24} />
+                    <div
+                      aria-hidden
+                      className="pointer-events-none absolute -bottom-10 -right-10 h-28 w-28 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 opacity-70 blur-[1px] transition-all duration-700 ease-out group-hover:-bottom-6 group-hover:-right-6 group-hover:h-40 group-hover:w-40 group-hover:opacity-90"
+                    />
+                    <div
+                      aria-hidden
+                      className="pointer-events-none absolute -bottom-14 -right-2 h-20 w-20 rounded-full bg-gradient-to-br from-purple-500 to-blue-400 opacity-60 blur-[1px] transition-all duration-700 ease-out group-hover:-bottom-8 group-hover:-right-1 group-hover:h-28 group-hover:w-28 group-hover:opacity-80"
+                    />
+
+                    <span className="pointer-events-none relative z-10 self-end text-4xl font-extrabold text-zinc-100 transition-colors duration-500 group-hover:text-white/15">
+                      {String(i + 1).padStart(2, "0")}
                     </span>
-                    <h3 className="mt-4 font-semibold text-zinc-900">{tf(s, "name", l)}</h3>
+
+                    <div className="relative z-10 -mt-4 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600 shadow-sm transition-all duration-500 group-hover:bg-white/15 group-hover:text-white group-hover:shadow-lg">
+                      <Icon size={22} />
+                    </div>
+
+                    <h3 className="relative z-10 mt-5 text-base font-bold leading-snug text-zinc-900">
+                      {tf(s, "name", l)}
+                    </h3>
+
                     {s.headTitleAf && (
-                      <p className="mt-1 text-xs font-medium text-blue-600">
+                      <p className="relative z-10 mt-1 text-sm font-medium text-blue-600">
                         {tf(s, "headTitle", l)}
                       </p>
                     )}
-                    <p className="mt-3 text-sm text-zinc-500 line-clamp-3">
+
+                    <p className="relative z-10 mt-3 line-clamp-3 whitespace-pre-line text-sm leading-relaxed text-zinc-500">
                       {tf(s, "description", l)}
                     </p>
-                    <Link
-                      href="/sectors"
-                      className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-blue-600 opacity-0 transition-opacity group-hover:opacity-100"
-                    >
-                      {t("home.viewAll")} <ArrowUpRight size={14} />
-                    </Link>
+
+                    <div className="relative z-10 mt-auto flex items-center gap-2 pt-5 text-sm font-semibold text-zinc-900">
+                      <span className="inline-flex items-center gap-2 rounded-lg bg-blue-50 px-4 py-2.5 transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 group-hover:text-white">
+                        {t("home.readMore")}
+                        <ArrowRight
+                          size={15}
+                          className="transition-transform duration-300 group-hover:translate-x-1"
+                        />
+                      </span>
+                    </div>
                   </StaggerItem>
                 );
               })}
             </StaggerGroup>
+
+            <Reveal className="mt-12 text-center">
+              <Link
+                href="/sectors"
+                className="cg-gradient-btn inline-flex items-center gap-2 rounded-full px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-900/30 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-500/40"
+              >
+                {t("home.viewAll")} <ArrowRight size={15} />
+              </Link>
+            </Reveal>
           </div>
         </section>
       )}
@@ -348,37 +319,42 @@ export default async function HomePage({
         </div>
       </section>
 
-      {/* Process */}
-      <section className="relative overflow-hidden border-t border-zinc-100 bg-white px-4 py-20 text-zinc-900">
-        <div className="cg-grid-pattern-dark pointer-events-none absolute inset-0" />
-        <div className="relative mx-auto max-w-7xl">
-          <Reveal className="mx-auto max-w-2xl text-center">
-            <span className="cg-eyebrow justify-center text-blue-600">
-              {t("home.processBadge")}
-            </span>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">
-              {t("home.processTitle")}
-            </h2>
-            <p className="mt-4 text-sm leading-relaxed text-zinc-500">{t("home.processSubtitle")}</p>
-          </Reveal>
-          <div className="pointer-events-none absolute inset-x-24 top-[62%] hidden border-t-2 border-dashed border-blue-200 sm:block" />
-          <StaggerGroup className="relative mt-12 grid grid-cols-1 gap-8 sm:grid-cols-3">
-            {[
-              { title: t("home.processStep1Title"), text: t("home.processStep1Text") },
-              { title: t("home.processStep2Title"), text: t("home.processStep2Text") },
-              { title: t("home.processStep3Title"), text: t("home.processStep3Text") },
-            ].map((step, i) => (
-              <StaggerItem key={step.title} className="cg-card relative rounded-2xl p-6 text-center">
-                <div className="cg-gradient-btn mx-auto flex h-16 w-16 items-center justify-center rounded-full text-xl font-extrabold text-white shadow-lg shadow-blue-800/20">
-                  {i + 1}
-                </div>
-                <h3 className="mt-4 font-semibold text-zinc-900">{step.title}</h3>
-                <p className="mt-2 text-sm text-zinc-500">{step.text}</p>
-              </StaggerItem>
-            ))}
-          </StaggerGroup>
-        </div>
-      </section>
+      {/* Directorates */}
+      {directorates.length > 0 && (
+        <section className="relative overflow-hidden border-t border-zinc-100 bg-white px-4 py-20 text-zinc-900">
+          <div className="cg-grid-pattern-dark pointer-events-none absolute inset-0" />
+          <div className="relative mx-auto max-w-7xl">
+            <Reveal className="mx-auto max-w-2xl text-center">
+              <span className="cg-eyebrow justify-center text-blue-600">
+                {t("home.directoratesBadge")}
+              </span>
+              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">
+                {t("home.directoratesTitle")}
+              </h2>
+              <p className="mt-4 text-sm leading-relaxed text-zinc-500">
+                {t("home.directoratesSubtitle")}
+              </p>
+            </Reveal>
+            <StaggerGroup className="relative mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
+              {directorates.map((d, i) => {
+                const Icon = directorateIcons[i % directorateIcons.length];
+                return (
+                  <StaggerItem
+                    key={d.id}
+                    className="cg-card group relative rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-500/10"
+                  >
+                    <span className="cg-gradient-btn mx-auto flex h-14 w-14 items-center justify-center rounded-full text-white shadow-lg shadow-blue-800/20 transition-transform duration-300 group-hover:scale-110">
+                      <Icon size={24} />
+                    </span>
+                    <h3 className="mt-4 font-semibold text-zinc-900">{tf(d, "name", l)}</h3>
+                    <p className="mt-2 line-clamp-3 text-sm text-zinc-500">{tf(d, "description", l)}</p>
+                  </StaggerItem>
+                );
+              })}
+            </StaggerGroup>
+          </div>
+        </section>
+      )}
 
       {/* News */}
       <section className="relative overflow-hidden border-t border-zinc-100 bg-zinc-50 px-4 py-20 text-zinc-900">
