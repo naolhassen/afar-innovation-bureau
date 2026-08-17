@@ -69,8 +69,10 @@ jobs:
             cd $APP_DIR
 
             # Install all dependencies (devDependencies are required for
-            # prisma.config.ts and `next build`'s typecheck/CSS pipeline)
-            npm install --legacy-peer-deps
+            # `next build`'s typecheck/CSS pipeline). --ignore-scripts skips
+            # the postinstall (prisma generate) hook, which is run explicitly
+            # below with an absolute --schema path to avoid cwd ambiguity.
+            npm install --legacy-peer-deps --ignore-scripts
 
             # Generate Prisma Client & push migrations
             export DATABASE_URL="${{ secrets.PROD_DATABASE_URL }}"
@@ -78,8 +80,8 @@ jobs:
             export NEXTAUTH_URL="https://afsitb.et"
             export NODE_ENV="production"
 
-            npx prisma generate
-            npx prisma db push
+            npx prisma generate --schema="$APP_DIR/prisma/schema.prisma"
+            npx prisma db push --schema="$APP_DIR/prisma/schema.prisma"
 
             # Build app on server
             npm run build

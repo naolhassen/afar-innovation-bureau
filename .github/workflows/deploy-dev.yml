@@ -68,16 +68,11 @@ jobs:
             source $HOME/nodevenv/dev.afsitb.et/20/bin/activate
             cd $APP_DIR
 
-            # DEBUG: verify cwd and schema file presence
-            echo "PWD=$(pwd)"
-            ls -la
-            ls -la prisma || echo "prisma dir missing"
-            which node
-            which npm
-
             # Install all dependencies (devDependencies are required for
-            # prisma.config.ts and `next build`'s typecheck/CSS pipeline)
-            npm install --legacy-peer-deps
+            # `next build`'s typecheck/CSS pipeline). --ignore-scripts skips
+            # the postinstall (prisma generate) hook, which is run explicitly
+            # below with an absolute --schema path to avoid cwd ambiguity.
+            npm install --legacy-peer-deps --ignore-scripts
 
             # Generate Prisma Client & push migrations
             export DATABASE_URL="${{ secrets.DEV_DATABASE_URL }}"
@@ -85,8 +80,8 @@ jobs:
             export NEXTAUTH_URL="https://dev.afsitb.et"
             export NODE_ENV="production"
 
-            npx prisma generate
-            npx prisma db push --accept-data-loss
+            npx prisma generate --schema="$APP_DIR/prisma/schema.prisma"
+            npx prisma db push --schema="$APP_DIR/prisma/schema.prisma" --accept-data-loss
 
             # Build app on server
             npm run build
