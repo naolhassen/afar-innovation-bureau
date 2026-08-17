@@ -35,7 +35,7 @@ jobs:
           NEXTAUTH_URL: https://afsitb.et
           NODE_ENV: production
 
-      - name: Deploy via SSH to cPanel
+      - name: Sync source & install production dependencies on server
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.CPANEL_SSH_HOST }}
@@ -60,7 +60,10 @@ jobs:
             fi
             git fetch origin main
             git reset --hard origin/main
-            git clean -fd -e node_modules -e .env
+            # .next is uploaded separately by the SCP step below, so keep it
+            # around here to avoid deleting it before it's replaced (it'll be
+            # freshly overwritten anyway, and doesn't exist on first deploy).
+            git clean -fd -e node_modules -e .env -e .next
 
             # Activate the cPanel Node.js app's virtualenv (Passenger)
             # Adjust the node version path (e.g. 20) to match what you selected in cPanel
@@ -68,15 +71,20 @@ jobs:
             source $HOME/nodevenv/afsitb-prod/20/bin/activate
             cd $APP_DIR
 
-            # cPanel's Node.js App config sets NODE_ENV=production
-            # persistently for this app, which npm inherits here and uses to
-            # silently skip devDependencies (same effect as --omit=dev), even
-            # though we don't pass that flag. --include=dev overrides this.
-            # devDependencies are required for `next build`'s typecheck/CSS
-            # pipeline. --ignore-scripts skips the postinstall (prisma
-            # generate) hook, which is run explicitly below with an absolute
-            # --schema path to avoid cwd ambiguity.
-            npm install --legacy-peer-deps --include=dev --ignore-scripts
+            # The app is built in CI (see the "Build Application" step
+            # above) and its .next output is copied here by the SCP step
+            # below - building `next build` directly on this cPanel server
+            # is NOT viable: cPanel's LVE plan enforces a hard process/thread
+            # (NPROC) cap that native Rust build tooling (SWC, Tailwind's
+            # oxide engine, lightningcss) reliably exceeds, causing SIGABRT
+            # crashes with no way to override via env vars (verified: raising
+            # RAYON_NUM_THREADS/UV_THREADPOOL_SIZE/TOKIO_WORKER_THREADS and
+            # confirming ulimit -u is unlimited did not help - the LVE
+            # governor kills the process outside of normal rlimit visibility).
+            # So we only need a lightweight production install here (no
+            # devDependencies, no build). `prisma` (the CLI) is a regular
+            # dependency, so it's included in a plain production install.
+            npm install --legacy-peer-deps --ignore-scripts
 
             # Generate Prisma Client & push migrations
             export DATABASE_URL="${{ secrets.PROD_DATABASE_URL }}"
@@ -87,22 +95,31 @@ jobs:
             npx prisma generate --schema="$APP_DIR/prisma/schema.prisma"
             npx prisma db push --schema="$APP_DIR/prisma/schema.prisma"
 
-            # Build app on server. Turbopack fails on cPanel's jailed
-            # filesystem (CageFS) with "Symlink ... points out of the
-            # filesystem root", so force the classic Webpack bundler.
-            # Clear any stale .next cache left over from failed Turbopack runs.
-            rm -rf .next
-            # Native Rust addons (e.g. @tailwindcss/oxide, lightningcss) spawn
-            # a rayon thread pool sized to CPU count by default, which hits
-            # cPanel's LVE process/thread (nproc) limit and panics with
-            # "Resource temporarily unavailable". Cap thread pool sizes.
-            export RAYON_NUM_THREADS=1
-            export UV_THREADPOOL_SIZE=2
-            export TOKIO_WORKER_THREADS=1
-            npx next build --webpack
-
             deactivate
 
-            # Restart cPanel Node.js app (Passenger)
+      - name: Upload built .next output to server
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.CPANEL_SSH_HOST }}
+          username: ${{ secrets.CPANEL_SSH_USER }}
+          key: ${{ secrets.CPANEL_SSH_KEY }}
+          passphrase: ${{ secrets.CPANEL_SSH_PASSPHRASE }}
+          port: ${{ secrets.CPANEL_SSH_PORT || 22 }}
+          source: ".next"
+          target: "afsitb-prod"
+          overwrite: true
+
+      - name: Restart cPanel Node.js app
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.CPANEL_SSH_HOST }}
+          username: ${{ secrets.CPANEL_SSH_USER }}
+          key: ${{ secrets.CPANEL_SSH_KEY }}
+          passphrase: ${{ secrets.CPANEL_SSH_PASSPHRASE }}
+          port: ${{ secrets.CPANEL_SSH_PORT || 22 }}
+          script: |
+            set -e
+            APP_DIR="$HOME/afsitb-prod"
+            cd $APP_DIR
             mkdir -p tmp
             touch tmp/restart.txt
