@@ -22,8 +22,10 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Generate Prisma Client
-        run: npx prisma generate
+      - name: Generate Prisma Client & Push Database Schema
+        run: |
+          npx prisma generate
+          npx prisma db push --accept-data-loss
         env:
           DATABASE_URL: ${{ secrets.DEV_DATABASE_URL }}
 
@@ -35,43 +37,47 @@ jobs:
           NEXTAUTH_URL: https://dev.afsitb.et
           NODE_ENV: production
 
-      - name: Deploy via SSH to cPanel
+      - name: Package Standalone Build
+        run: |
+          # Copy static assets and Prisma files into standalone
+          cp -r public .next/standalone/public
+          cp -r .next/static .next/standalone/.next/static
+          if [ -d "src/generated" ]; then cp -r src/generated .next/standalone/src/generated; fi
+          if [ -d "node_modules/@prisma" ]; then cp -r node_modules/@prisma .next/standalone/node_modules/@prisma; fi
+          if [ -d "prisma" ]; then cp -r prisma .next/standalone/prisma; fi
+          
+          # Create Passenger restart trigger
+          mkdir -p .next/standalone/tmp
+          touch .next/standalone/tmp/restart.txt
+
+          # Compress standalone directory into one archive
+          cd .next/standalone
+          tar -czf ../../deploy.tar.gz .
+
+      - name: Upload Deployment Bundle to cPanel
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.CPANEL_SSH_HOST }}
+          username: ${{ secrets.CPANEL_SSH_USER }}
+          key: ${{ secrets.CPANEL_SSH_KEY }}
+          passphrase: ${{ secrets.CPANEL_SSH_PASSPHRASE }}
+          port: ${{ secrets.CPANEL_SSH_PORT || 22 }}
+          source: "deploy.tar.gz"
+          target: "dev.afsitb.et"
+          overwrite: true
+
+      - name: Extract and Restart on cPanel
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.CPANEL_SSH_HOST }}
           username: ${{ secrets.CPANEL_SSH_USER }}
           key: ${{ secrets.CPANEL_SSH_KEY }}
+          passphrase: ${{ secrets.CPANEL_SSH_PASSPHRASE }}
           port: ${{ secrets.CPANEL_SSH_PORT || 22 }}
           script: |
             set -e
-            APP_DIR="~/sitb-dev"
-            mkdir -p $APP_DIR
-
-            cd $APP_DIR
-            
-            # Fetch latest dev branch code
-            if [ ! -d ".git" ]; then
-              git clone -b dev https://github.com/${{ github.repository }}.git .
-            else
-              git fetch origin dev
-              git reset --hard origin/dev
-            fi
-
-            # Install production dependencies
-            npm install --omit=dev --legacy-peer-deps
-
-            # Generate Prisma Client & push migrations
-            export DATABASE_URL="${{ secrets.DEV_DATABASE_URL }}"
-            export NEXTAUTH_SECRET="${{ secrets.DEV_NEXTAUTH_SECRET }}"
-            export NEXTAUTH_URL="https://dev.afsitb.et"
-            export NODE_ENV="production"
-            
-            npx prisma generate
-            npx prisma db push --accept-data-loss
-
-            # Build app on server or build standalone
-            npm run build
-
-            # Restart cPanel Node.js app
+            cd ~/dev.afsitb.et
+            tar -xzf deploy.tar.gz
+            rm -f deploy.tar.gz
             mkdir -p tmp
             touch tmp/restart.txt

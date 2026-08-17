@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 20
           cache: "npm"
@@ -35,30 +35,56 @@ jobs:
           NEXTAUTH_URL: https://afsitb.et
           NODE_ENV: production
 
-      - name: Deploy via SSH to cPanel
+      - name: Sync source & install production dependencies on server
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.CPANEL_SSH_HOST }}
           username: ${{ secrets.CPANEL_SSH_USER }}
           key: ${{ secrets.CPANEL_SSH_KEY }}
+          passphrase: ${{ secrets.CPANEL_SSH_PASSPHRASE }}
           port: ${{ secrets.CPANEL_SSH_PORT || 22 }}
           script: |
             set -e
-            APP_DIR="~/sitb-prod"
+            APP_DIR="$HOME/afsitb-prod"
             mkdir -p $APP_DIR
 
             cd $APP_DIR
-            
-            # Fetch latest main branch code
-            if [ ! -d ".git" ]; then
-              git clone -b main https://github.com/${{ github.repository }}.git .
-            else
-              git fetch origin main
-              git reset --hard origin/main
-            fi
 
-            # Install dependencies
-            npm install --omit=dev --legacy-peer-deps
+            # Fetch latest main branch code (directory may already contain
+            # cPanel's default app files, so we can't use `git clone` here)
+            if [ ! -d ".git" ]; then
+              git init
+            fi
+            if ! git remote | grep -q '^origin$'; then
+              git remote add origin https://github.com/${{ github.repository }}.git
+            fi
+            git fetch origin main
+            git reset --hard origin/main
+            # .next is uploaded separately by the SCP step below, so keep it
+            # around here to avoid deleting it before it's replaced (it'll be
+            # freshly overwritten anyway, and doesn't exist on first deploy).
+            git clean -fd -e node_modules -e .env -e .next
+
+            # Activate the cPanel Node.js app's virtualenv (Passenger)
+            # Adjust the node version path (e.g. 20) to match what you selected in cPanel
+            # NOTE: activating changes the cwd as a side effect, so cd back into APP_DIR
+            source $HOME/nodevenv/afsitb-prod/20/bin/activate
+            cd $APP_DIR
+
+            # The app is built in CI (see the "Build Application" step
+            # above) and its .next output is copied here by the SCP step
+            # below - building `next build` directly on this cPanel server
+            # is NOT viable: cPanel's LVE plan enforces a hard process/thread
+            # (NPROC) cap that native Rust build tooling (SWC, Tailwind's
+            # oxide engine, lightningcss) reliably exceeds, causing SIGABRT
+            # crashes with no way to override via env vars (verified: raising
+            # RAYON_NUM_THREADS/UV_THREADPOOL_SIZE/TOKIO_WORKER_THREADS and
+            # confirming ulimit -u is unlimited did not help - the LVE
+            # governor kills the process outside of normal rlimit visibility).
+            # So we only need a lightweight production install here (no
+            # devDependencies, no build). `prisma` (the CLI) is a regular
+            # dependency, so it's included in a plain production install.
+            npm install --legacy-peer-deps --ignore-scripts
 
             # Generate Prisma Client & push migrations
             export DATABASE_URL="${{ secrets.PROD_DATABASE_URL }}"
@@ -66,12 +92,34 @@ jobs:
             export NEXTAUTH_URL="https://afsitb.et"
             export NODE_ENV="production"
 
-            npx prisma generate
-            npx prisma db push
+            npx prisma generate --schema="$APP_DIR/prisma/schema.prisma"
+            npx prisma db push --schema="$APP_DIR/prisma/schema.prisma"
 
-            # Build app on server
-            npm run build
+            deactivate
 
-            # Restart cPanel Node.js app
+      - name: Upload built .next output to server
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.CPANEL_SSH_HOST }}
+          username: ${{ secrets.CPANEL_SSH_USER }}
+          key: ${{ secrets.CPANEL_SSH_KEY }}
+          passphrase: ${{ secrets.CPANEL_SSH_PASSPHRASE }}
+          port: ${{ secrets.CPANEL_SSH_PORT || 22 }}
+          source: ".next"
+          target: "afsitb-prod"
+          overwrite: true
+
+      - name: Restart cPanel Node.js app
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.CPANEL_SSH_HOST }}
+          username: ${{ secrets.CPANEL_SSH_USER }}
+          key: ${{ secrets.CPANEL_SSH_KEY }}
+          passphrase: ${{ secrets.CPANEL_SSH_PASSPHRASE }}
+          port: ${{ secrets.CPANEL_SSH_PORT || 22 }}
+          script: |
+            set -e
+            APP_DIR="$HOME/afsitb-prod"
+            cd $APP_DIR
             mkdir -p tmp
             touch tmp/restart.txt
