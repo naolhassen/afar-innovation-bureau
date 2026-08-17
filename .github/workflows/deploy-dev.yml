@@ -107,6 +107,7 @@ jobs:
             # "Resource temporarily unavailable". Cap thread pool sizes.
             export RAYON_NUM_THREADS=1
             export UV_THREADPOOL_SIZE=2
+            export TOKIO_WORKER_THREADS=1
             npx next build --webpack
 
             deactivate

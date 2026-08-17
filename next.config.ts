@@ -12,7 +12,8 @@ const nextConfig: NextConfig = {
   // spawn. Next.js otherwise defaults to os.cpus().length - 1 worker
   // processes, which can exceed that limit and crash the build with EAGAIN.
   experimental: {
-    cpus: 2,
+    cpus: 1,
+    workerThreads: false,
   },
 };
 
