@@ -64,7 +64,9 @@ jobs:
 
             # Activate the cPanel Node.js app's virtualenv (Passenger)
             # Adjust the node version path (e.g. 20) to match what you selected in cPanel
+            # NOTE: activating changes the cwd as a side effect, so cd back into APP_DIR
             source $HOME/nodevenv/afsitb-prod/20/bin/activate
+            cd $APP_DIR
 
             # Install all dependencies (devDependencies are required for
             # prisma.config.ts and `next build`'s typecheck/CSS pipeline)
