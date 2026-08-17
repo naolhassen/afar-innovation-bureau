@@ -101,6 +101,12 @@ jobs:
             # filesystem root", so force the classic Webpack bundler.
             # Clear any stale .next cache left over from failed Turbopack runs.
             rm -rf .next
+            # Native Rust addons (e.g. @tailwindcss/oxide, lightningcss) spawn
+            # a rayon thread pool sized to CPU count by default, which hits
+            # cPanel's LVE process/thread (nproc) limit and panics with
+            # "Resource temporarily unavailable". Cap thread pool sizes.
+            export RAYON_NUM_THREADS=1
+            export UV_THREADPOOL_SIZE=2
             npx next build --webpack
 
             deactivate
