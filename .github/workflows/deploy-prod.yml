@@ -1,0 +1,77 @@
+name: Deploy to Production (afsitb.et)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
+        env:
+          DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}
+
+      - name: Build Application
+        run: npm run build
+        env:
+          DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}
+          NEXTAUTH_SECRET: ${{ secrets.PROD_NEXTAUTH_SECRET }}
+          NEXTAUTH_URL: https://afsitb.et
+          NODE_ENV: production
+
+      - name: Deploy via SSH to cPanel
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.CPANEL_SSH_HOST }}
+          username: ${{ secrets.CPANEL_SSH_USER }}
+          key: ${{ secrets.CPANEL_SSH_KEY }}
+          port: ${{ secrets.CPANEL_SSH_PORT || 22 }}
+          script: |
+            set -e
+            APP_DIR="~/sitb-prod"
+            mkdir -p $APP_DIR
+
+            cd $APP_DIR
+            
+            # Fetch latest main branch code
+            if [ ! -d ".git" ]; then
+              git clone -b main https://github.com/${{ github.repository }}.git .
+            else
+              git fetch origin main
+              git reset --hard origin/main
+            fi
+
+            # Install dependencies
+            npm install --omit=dev --legacy-peer-deps
+
+            # Generate Prisma Client & push migrations
+            export DATABASE_URL="${{ secrets.PROD_DATABASE_URL }}"
+            export NEXTAUTH_SECRET="${{ secrets.PROD_NEXTAUTH_SECRET }}"
+            export NEXTAUTH_URL="https://afsitb.et"
+            export NODE_ENV="production"
+
+            npx prisma generate
+            npx prisma db push
+
+            # Build app on server
+            npm run build
+
+            # Restart cPanel Node.js app
+            mkdir -p tmp
+            touch tmp/restart.txt
