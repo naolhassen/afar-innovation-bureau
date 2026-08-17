@@ -45,7 +45,7 @@ jobs:
           port: ${{ secrets.CPANEL_SSH_PORT || 22 }}
           script: |
             set -e
-            APP_DIR="$HOME/afsitb-dev"
+            APP_DIR="$HOME/dev.afsitb.et"
             mkdir -p $APP_DIR
 
             cd $APP_DIR
@@ -62,7 +62,7 @@ jobs:
 
             # Activate the cPanel Node.js app's virtualenv (Passenger)
             # Adjust the node version path (e.g. 20) to match what you selected in cPanel
-            source $HOME/nodevenv/afsitb-dev/20/bin/activate
+            source $HOME/nodevenv/dev.afsitb.et/20/bin/activate
 
             # Install production dependencies
             npm install --omit=dev --legacy-peer-deps
