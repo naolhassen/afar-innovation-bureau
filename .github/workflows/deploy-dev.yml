@@ -99,7 +99,14 @@ jobs:
             export RAYON_NUM_THREADS=1
             export UV_THREADPOOL_SIZE=2
             export TOKIO_WORKER_THREADS=1
-            npx next build --webpack
+            echo "ulimit -u (soft/hard): $(ulimit -Su) / $(ulimit -Hu)"
+            npx next build --webpack 2>&1 | tee /tmp/build.log
+            BUILD_EXIT=${PIPESTATUS[0]}
+            if [ "$BUILD_EXIT" != "0" ]; then
+              echo "===== FULL BUILD LOG (last 100 lines) ====="
+              tail -n 100 /tmp/build.log
+              exit "$BUILD_EXIT"
+            fi
 
             deactivate
 
