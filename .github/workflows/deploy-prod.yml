@@ -68,15 +68,6 @@ jobs:
             source $HOME/nodevenv/afsitb-prod/20/bin/activate
             cd $APP_DIR
 
-            # cPanel's nodevenv npm always symlinks node_modules into the
-            # shared $HOME/nodevenv/.../lib/node_modules directory and reuses
-            # its (potentially stale) contents. Removing the local symlink
-            # alone isn't enough - the shared target itself must be wiped so
-            # npm is forced to do a genuine full reinstall there.
-            NODEVENV_MODULES="$HOME/nodevenv/afsitb-prod/20/lib/node_modules"
-            rm -rf node_modules
-            rm -rf "$NODEVENV_MODULES"
-
             # cPanel's Node.js App config sets NODE_ENV=production
             # persistently for this app, which npm inherits here and uses to
             # silently skip devDependencies (same effect as --omit=dev), even
