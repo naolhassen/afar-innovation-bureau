@@ -68,6 +68,12 @@ jobs:
             source $HOME/nodevenv/afsitb-prod/20/bin/activate
             cd $APP_DIR
 
+            # cPanel symlinks node_modules into the shared nodevenv folder by
+            # default, which breaks Turbopack's filesystem-root check
+            # ("Symlink [project]/node_modules is invalid"). Remove the
+            # symlink so npm installs a real local node_modules directory.
+            if [ -L node_modules ]; then rm node_modules; fi
+
             # Install all dependencies (devDependencies are required for
             # `next build`'s typecheck/CSS pipeline). --ignore-scripts skips
             # the postinstall (prisma generate) hook, which is run explicitly
