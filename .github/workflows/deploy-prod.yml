@@ -77,11 +77,15 @@ jobs:
             rm -rf node_modules
             rm -rf "$NODEVENV_MODULES"
 
-            # Install all dependencies (devDependencies are required for
-            # `next build`'s typecheck/CSS pipeline). --ignore-scripts skips
-            # the postinstall (prisma generate) hook, which is run explicitly
-            # below with an absolute --schema path to avoid cwd ambiguity.
-            npm install --legacy-peer-deps --ignore-scripts
+            # cPanel's Node.js App config sets NODE_ENV=production
+            # persistently for this app, which npm inherits here and uses to
+            # silently skip devDependencies (same effect as --omit=dev), even
+            # though we don't pass that flag. --include=dev overrides this.
+            # devDependencies are required for `next build`'s typecheck/CSS
+            # pipeline. --ignore-scripts skips the postinstall (prisma
+            # generate) hook, which is run explicitly below with an absolute
+            # --schema path to avoid cwd ambiguity.
+            npm install --legacy-peer-deps --include=dev --ignore-scripts
 
             # Generate Prisma Client & push migrations
             export DATABASE_URL="${{ secrets.PROD_DATABASE_URL }}"
