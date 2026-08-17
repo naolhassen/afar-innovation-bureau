@@ -54,6 +54,8 @@ jobs:
             # cPanel's default app files, so we can't use `git clone` here)
             if [ ! -d ".git" ]; then
               git init
+            fi
+            if ! git remote | grep -q '^origin$'; then
               git remote add origin https://github.com/${{ github.repository }}.git
             fi
             git fetch origin dev
