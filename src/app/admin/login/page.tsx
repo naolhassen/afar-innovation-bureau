@@ -39,10 +39,10 @@ export default function AdminLoginPage() {
       >
         <div className="mb-6 text-center">
           <div className="relative mx-auto mb-3 h-12 w-12 overflow-hidden rounded-full">
-            <Image src="/logo.jpg" alt="Afar ITDB" fill sizes="48px" className="object-cover" />
+            <Image src="/logo.jpg" alt="Afar SITB" fill sizes="48px" className="object-cover" />
           </div>
           <h1 className="text-lg font-bold text-emerald-900">Admin Login</h1>
-          <p className="text-xs text-zinc-500">Afar ITDB Content Management</p>
+          <p className="text-xs text-zinc-500">Afar SITB Content Management</p>
         </div>
 
         <div className="space-y-4">

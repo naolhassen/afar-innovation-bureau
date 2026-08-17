@@ -169,15 +169,14 @@ export default async function HomePage({
 
       {/* Text carousel - core values */}
       {values.length > 0 && (
-        <section className="cg-dark relative isolate overflow-hidden py-16">
+        <section className="cg-dark relative isolate overflow-hidden py-8">
           <div className="cg-grid-pattern pointer-events-none absolute inset-0 opacity-50" />
           <div className="relative z-10 mx-auto max-w-2xl px-4 text-center">
-            <span className="cg-eyebrow text-blue-400">{t("home.whyBadge")}</span>
-            <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
+            <h2 className="text-xl font-extrabold tracking-tight text-white sm:text-2xl">
               {t("home.whyTitle")}
             </h2>
           </div>
-          <div className="relative z-10 mt-10">
+          <div className="relative z-10 mt-6">
             <TextMarquee items={values} />
           </div>
         </section>
@@ -190,10 +189,7 @@ export default async function HomePage({
           <div className="cg-dot-pattern pointer-events-none absolute bottom-10 left-0 h-40 w-56 opacity-40" />
           <div className="relative mx-auto max-w-7xl">
             <Reveal className="mx-auto max-w-2xl text-center">
-              <span className="cg-eyebrow justify-center text-blue-600">
-                {t("home.sectorsBadge")}
-              </span>
-              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">
+              <h2 className="text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">
                 {t("home.sectorsTitle")}
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-zinc-500">{t("home.sectorsSubtitle")}</p>
@@ -325,10 +321,7 @@ export default async function HomePage({
           <div className="cg-grid-pattern-dark pointer-events-none absolute inset-0" />
           <div className="relative mx-auto max-w-7xl">
             <Reveal className="mx-auto max-w-2xl text-center">
-              <span className="cg-eyebrow justify-center text-blue-600">
-                {t("home.directoratesBadge")}
-              </span>
-              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">
+              <h2 className="text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">
                 {t("home.directoratesTitle")}
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-zinc-500">
@@ -362,10 +355,7 @@ export default async function HomePage({
         <div className="relative mx-auto max-w-7xl">
           <Reveal className="flex items-end justify-between">
             <div>
-              <span className="cg-eyebrow text-blue-600">
-                {t("home.newsBadge")}
-              </span>
-              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">
+              <h2 className="text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">
                 {t("home.newsTitle")}
               </h2>
             </div>

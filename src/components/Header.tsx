@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Link, usePathname } from "@/i18n/navigation";
 import LocaleSwitcher from "./LocaleSwitcher";
-import { Menu, X, Phone, Mail } from "lucide-react";
+import { Menu, X, Phone, Mail, LogIn } from "lucide-react";
 
 export default function Header() {
   const t = useTranslations();
@@ -116,6 +116,12 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center gap-3">
+            <Link
+              href="/admin/login"
+              className="cg-gradient-btn hidden items-center gap-1.5 rounded-full px-5 py-2.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-blue-500/30 lg:inline-flex"
+            >
+              {t("nav.adminLogin")} <LogIn size={15} />
+            </Link>
             <div className="sm:hidden">
               <LocaleSwitcher light={solid} />
             </div>

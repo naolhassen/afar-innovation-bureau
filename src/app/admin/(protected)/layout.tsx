@@ -46,9 +46,9 @@ export default async function ProtectedAdminLayout({
       <aside className="hidden w-64 shrink-0 flex-col bg-emerald-950 text-emerald-100 sm:flex">
         <div className="flex items-center gap-2 px-5 py-5">
           <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full">
-            <Image src="/logo.jpg" alt="Afar ITDB" fill sizes="36px" className="object-cover" />
+            <Image src="/logo.jpg" alt="Afar SITB" fill sizes="36px" className="object-cover" />
           </div>
-          <span className="text-sm font-semibold text-white">Afar ITDB Admin</span>
+          <span className="text-sm font-semibold text-white">Afar SITB Admin</span>
         </div>
         <nav className="flex-1 space-y-1 px-3">
           {navItems.map((item) => {

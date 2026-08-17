@@ -1,6 +1,6 @@
 {
   "siteName": "Qafar Agatih Rakaakayih Doolatak\nScience Innoveshin kee Teknolojih Biiro",
-  "siteNameShort": "Qafar ITDB",
+  "siteNameShort": "Qafar SITB",
   "nav": {
     "home": "Xagana",
     "about": "Nanu",
@@ -11,7 +11,8 @@
     "publications": "Kitaabwaa",
     "gallery": "Sawaay Bakki",
     "faq": "Esserwaa Massowta",
-    "contact": "Nee Xagnisaay"
+    "contact": "Nee Xagnisaay",
+    "adminLogin": "Amoyti"
   },
   "hero": {
     "cta": "Ellee Ubla",
@@ -25,13 +26,10 @@
     "statsDirectorates": "Waadi Adaawal",
     "statsNews": "Warri",
     "statsGallery": "Sawaay Bakki",
-    "sectorsBadge": "Ni Taama",
     "sectorsTitle": "Ni Xaqbo",
     "sectorsSubtitle": "Biiro Rakaakay Addal Dijital Tabaatabsi Horsiisan Xaqbo Yaceeh.",
-    "whyBadge": "Macah Ni Doorittaanam",
     "whyTitle": "Ni Assaskih Migaq",
     "whySubtitle": "Qafar Ummattah Xaqbo Kah Ceelinnu Kalliyya.",
-    "newsBadge": "Xayuwwa Ellecabo",
     "newsTitle": "Warri kee Ellecabo",
     "eventsTitle": "Radaanam Uwwaadli",
     "publicationsTitle": "Kitaabwaa",
@@ -41,13 +39,12 @@
     "ctaButton": "Nee Xagnisaay",
     "viewAll": "Inkih Ubla",
     "readMore": "Ellee Akriy",
-    "directoratesBadge": "Biiro Taamuwaay",
     "directoratesTitle": "Waadi Adaawal",
     "directoratesSubtitle": "Biiro Ellecabo kee Teknoolojii Xaqbo Geytak Waqdi Cakkisna Waadi Adaawal.",
     "callUsTitle": "Cato Litinnaa?",
     "callUsSubtitle": "Xaqbi Kalinnah Ni Buxak Warac.",
     "callUsLabel": "Nee Xagnisaay",
-    "aboutBadge": "Ni Way Kinnino",
+    "aboutBadge": "Qafar SITB",
     "aboutTitle": "Qafar Dijital Tabaatabsi Horsiisak",
     "aboutText": "Biiro Tabba Sanatiiy Fanah Amaanat-le kee Ballaqoyta-le ICT Daddos Beyaay, Ellecabo Cateynaay, Doolat Wakiiltak Fanah Baditto Ummattah Fanah Rakaakay Inkih Sittacisa Teknoloji-le Xaqbo Yaceeh.",
     "aboutPoint1": "Amaanat-le kee Ballaqoyta-le ICT Daddos Rakaakay Inkih",

@@ -1,6 +1,6 @@
 {
   "siteName": "የአፋር ብሔራዊ ክልላዊ መንግስት\nሳይንስ ኢኖቬሽንና ቴክኖሎጂ ቢሮ",
-  "siteNameShort": "አፋር ኢቴክ ቢሮ",
+  "siteNameShort": "አፋር SITB",
   "nav": {
     "home": "መነሻ",
     "about": "ስለ እኛ",
@@ -10,8 +10,9 @@
     "events": "ዝግጅቶች",
     "publications": "ጽሑፎች",
     "gallery": "ፎቶ ማዕከል",
-    "faq": "ተደጋግሞ የሚነሱ ጥያቄዎች",
-    "contact": "አግኙን"
+    "faq": "ተደጋጋሞ የሚነሱ ጥያቄዎች",
+    "contact": "አግኙን",
+    "adminLogin": "አድሚን"
   },
   "hero": {
     "cta": "ተጨማሪ ይመልከቱ",
@@ -25,13 +26,10 @@
     "statsDirectorates": "ዳይሬክቶሬቶች",
     "statsNews": "ዜናዎች",
     "statsGallery": "የፎቶ ማዕከል",
-    "sectorsBadge": "የምንሰራው",
     "sectorsTitle": "የቢሮው አገልግሎቶች",
     "sectorsSubtitle": "ቢሮው በክልሉ ዲጂታል ትራንስፎርሜሽንን የሚያንቀሳቅሱ ልዩ ልዩ አገልግሎቶችን ይሰጣል።",
-    "whyBadge": "ለምን እኛን ይምረጡ",
     "whyTitle": "መሰረታዊ እሴቶቻችን",
     "whySubtitle": "ለአፋር ህዝብ የምንሰጠውን አገልግሎት የሚመሩ መርሆዎች።",
-    "newsBadge": "የቅርብ ጊዜ ዝማኔዎች",
     "newsTitle": "ዜናዎች እና ዝማኔዎች",
     "eventsTitle": "ወደፊት የሚደረጉ ዝግጅቶች",
     "publicationsTitle": "ጽሑፎች",
@@ -41,13 +39,12 @@
     "ctaButton": "አግኙን",
     "viewAll": "ሁሉንም ይመልከቱ",
     "readMore": "ተጨማሪ ያንብቡ",
-    "directoratesBadge": "የቢሮው መዋቅር",
     "directoratesTitle": "ዳይሬክቶሬቶች",
     "directoratesSubtitle": "የቢሮውን ፈጠራ እና ቴክኖሎጂ አገልግሎቶች የሚደግፉ ልዩ ልዩ ዳይሬክቶሬቶችን ይመልከቱ።",
     "callUsTitle": "ቀጥተኛ ድጋፍ ይፈልጋሉ?",
     "callUsSubtitle": "ስለ አገልግሎቶቻችን ማብራሪያ ለማግኘት ከቡድናችን ጋር ይነጋገሩ።",
     "callUsLabel": "አሁን ይደውሉልን",
-    "aboutBadge": "እኛ ማን ነን",
+    "aboutBadge": "አፋር SITB",
     "aboutTitle": "የአፋርን ዲጂታል ትራንስፎርሜሽን በመምራት",
     "aboutText": "ቢሮው ከአስር ዓመታት በላይ ደህንነቱ የተጠበቀ ዲጂታል መሠረተ ልማትን በመገንባት፣ ፈጠራን በማበረታታት እና ከመንግስት ተቋማት እስከ ገጠር ማህበረሰቦች ድረስ የክልሉን ማዕዘናት የሚያገናኙ በቴክኖሎጂ የተደገፉ አገልግሎቶችን በማቅረብ ላይ ይገኛል።",
     "aboutPoint1": "ደህንነቱ የተጠበቀ እና ሊሰፋ የሚችል የአይሲቲ መሠረተ ልማት",

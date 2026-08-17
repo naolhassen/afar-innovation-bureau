@@ -46,7 +46,7 @@ export default async function AboutPage({
 
       <section className="relative overflow-hidden bg-white px-4 py-20">
         <div className="cg-dot-pattern pointer-events-none absolute left-0 top-10 h-40 w-56 opacity-40" />
-        <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 lg:grid-cols-[22rem_1fr]">
+        <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-start gap-12 lg:grid-cols-[22rem_1fr] lg:items-center">
           <Reveal direction="scale" className="flex justify-center">
             <HeroVisual src="/logo.png" alt={t("siteNameShort")} />
           </Reveal>
