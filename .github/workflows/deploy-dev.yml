@@ -69,10 +69,10 @@ jobs:
             cd $APP_DIR
 
             # cPanel symlinks node_modules into the shared nodevenv folder by
-            # default, which breaks Turbopack's filesystem-root check
-            # ("Symlink [project]/node_modules is invalid"). Remove the
-            # symlink so npm installs a real local node_modules directory.
-            if [ -L node_modules ]; then rm node_modules; fi
+            # default. Always do a fully clean reinstall (rather than a
+            # conditional symlink check) to avoid any corrupted/incomplete
+            # node_modules state carrying over between deploys.
+            rm -rf node_modules
 
             # Install all dependencies (devDependencies are required for
             # `next build`'s typecheck/CSS pipeline). --ignore-scripts skips
@@ -92,6 +92,8 @@ jobs:
             # Build app on server. Turbopack fails on cPanel's jailed
             # filesystem (CageFS) with "Symlink ... points out of the
             # filesystem root", so force the classic Webpack bundler.
+            # Clear any stale .next cache left over from failed Turbopack runs.
+            rm -rf .next
             npx next build --webpack
 
             deactivate
