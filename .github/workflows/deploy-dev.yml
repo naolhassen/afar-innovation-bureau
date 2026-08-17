@@ -89,8 +89,10 @@ jobs:
             npx prisma generate --schema="$APP_DIR/prisma/schema.prisma"
             npx prisma db push --schema="$APP_DIR/prisma/schema.prisma" --accept-data-loss
 
-            # Build app on server
-            npm run build
+            # Build app on server. Turbopack fails on cPanel's jailed
+            # filesystem (CageFS) with "Symlink ... points out of the
+            # filesystem root", so force the classic Webpack bundler.
+            npx next build --webpack
 
             deactivate
 
