@@ -50,13 +50,15 @@ jobs:
 
             cd $APP_DIR
 
-            # Fetch latest main branch code
+            # Fetch latest main branch code (directory may already contain
+            # cPanel's default app files, so we can't use `git clone` here)
             if [ ! -d ".git" ]; then
-              git clone -b main https://github.com/${{ github.repository }}.git .
-            else
-              git fetch origin main
-              git reset --hard origin/main
+              git init
+              git remote add origin https://github.com/${{ github.repository }}.git
             fi
+            git fetch origin main
+            git reset --hard origin/main
+            git clean -fd -e node_modules -e .env
 
             # Activate the cPanel Node.js app's virtualenv (Passenger)
             # Adjust the node version path (e.g. 20) to match what you selected in cPanel
