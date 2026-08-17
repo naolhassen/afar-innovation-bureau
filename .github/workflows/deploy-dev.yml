@@ -68,6 +68,13 @@ jobs:
             source $HOME/nodevenv/dev.afsitb.et/20/bin/activate
             cd $APP_DIR
 
+            # DEBUG: verify cwd and schema file presence
+            echo "PWD=$(pwd)"
+            ls -la
+            ls -la prisma || echo "prisma dir missing"
+            which node
+            which npm
+
             # Install all dependencies (devDependencies are required for
             # prisma.config.ts and `next build`'s typecheck/CSS pipeline)
             npm install --legacy-peer-deps
