@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "npm"
@@ -22,8 +22,10 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Generate Prisma Client
-        run: npx prisma generate
+      - name: Generate Prisma Client & Push Database Schema
+        run: |
+          npx prisma generate
+          npx prisma db push --accept-data-loss
         env:
           DATABASE_URL: ${{ secrets.DEV_DATABASE_URL }}
 
@@ -35,81 +37,36 @@ jobs:
           NEXTAUTH_URL: https://dev.afsitb.et
           NODE_ENV: production
 
-      - name: Sync source & install production dependencies on server
-        uses: appleboy/ssh-action@v1.0.3
+      - name: Package Standalone Build
+        run: |
+          # Copy static assets and Prisma files into standalone
+          cp -r public .next/standalone/public
+          cp -r .next/static .next/standalone/.next/static
+          if [ -d "src/generated" ]; then cp -r src/generated .next/standalone/src/generated; fi
+          if [ -d "node_modules/@prisma" ]; then cp -r node_modules/@prisma .next/standalone/node_modules/@prisma; fi
+          if [ -d "prisma" ]; then cp -r prisma .next/standalone/prisma; fi
+          
+          # Create Passenger restart trigger
+          mkdir -p .next/standalone/tmp
+          touch .next/standalone/tmp/restart.txt
+
+          # Compress standalone directory into one archive
+          cd .next/standalone
+          tar -czf ../../deploy.tar.gz .
+
+      - name: Upload Deployment Bundle to cPanel
+        uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.CPANEL_SSH_HOST }}
           username: ${{ secrets.CPANEL_SSH_USER }}
           key: ${{ secrets.CPANEL_SSH_KEY }}
           passphrase: ${{ secrets.CPANEL_SSH_PASSPHRASE }}
           port: ${{ secrets.CPANEL_SSH_PORT || 22 }}
-          script: |
-            set -e
-            APP_DIR="$HOME/dev.afsitb.et"
-            mkdir -p $APP_DIR
-
-            cd $APP_DIR
-
-            # Fetch latest dev branch code (directory may already contain
-            # cPanel's default app files, so we can't use `git clone` here)
-            if [ ! -d ".git" ]; then
-              git init
-            fi
-            if ! git remote | grep -q '^origin$'; then
-              git remote add origin https://github.com/${{ github.repository }}.git
-            fi
-            git fetch origin dev
-            git reset --hard origin/dev
-            # .next is uploaded separately by the SCP step below, so keep it
-            # around here to avoid deleting it before it's replaced (it'll be
-            # freshly overwritten anyway, and doesn't exist on first deploy).
-            git clean -fd -e node_modules -e .env -e .next
-
-            # Activate the cPanel Node.js app's virtualenv (Passenger)
-            # Adjust the node version path (e.g. 20) to match what you selected in cPanel
-            # NOTE: activating changes the cwd as a side effect, so cd back into APP_DIR
-            source $HOME/nodevenv/dev.afsitb.et/20/bin/activate
-            cd $APP_DIR
-
-            # The app is built in CI (see the "Build Application" step
-            # above) and its .next output is copied here by the SCP step
-            # below - building `next build` directly on this cPanel server
-            # is NOT viable: cPanel's LVE plan enforces a hard process/thread
-            # (NPROC) cap that native Rust build tooling (SWC, Tailwind's
-            # oxide engine, lightningcss) reliably exceeds, causing SIGABRT
-            # crashes with no way to override via env vars (verified: raising
-            # RAYON_NUM_THREADS/UV_THREADPOOL_SIZE/TOKIO_WORKER_THREADS and
-            # confirming ulimit -u is unlimited did not help - the LVE
-            # governor kills the process outside of normal rlimit visibility).
-            # So we only need a lightweight production install here (no
-            # devDependencies, no build). `prisma` (the CLI) is a regular
-            # dependency, so it's included in a plain production install.
-            npm install --legacy-peer-deps --ignore-scripts
-
-            # Generate Prisma Client & push migrations
-            export DATABASE_URL="${{ secrets.DEV_DATABASE_URL }}"
-            export NEXTAUTH_SECRET="${{ secrets.DEV_NEXTAUTH_SECRET }}"
-            export NEXTAUTH_URL="https://dev.afsitb.et"
-            export NODE_ENV="production"
-
-            npx prisma generate --schema="$APP_DIR/prisma/schema.prisma"
-            npx prisma db push --schema="$APP_DIR/prisma/schema.prisma" --accept-data-loss
-
-            deactivate
-
-      - name: Upload built .next output to server
-        uses: appleboy/scp-action@v1
-        with:
-          host: ${{ secrets.CPANEL_SSH_HOST }}
-          username: ${{ secrets.CPANEL_SSH_USER }}
-          key: ${{ secrets.CPANEL_SSH_KEY }}
-          passphrase: ${{ secrets.CPANEL_SSH_PASSPHRASE }}
-          port: ${{ secrets.CPANEL_SSH_PORT || 22 }}
-          source: ".next"
+          source: "deploy.tar.gz"
           target: "dev.afsitb.et"
           overwrite: true
 
-      - name: Restart cPanel Node.js app
+      - name: Extract and Restart on cPanel
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.CPANEL_SSH_HOST }}
@@ -119,7 +76,8 @@ jobs:
           port: ${{ secrets.CPANEL_SSH_PORT || 22 }}
           script: |
             set -e
-            APP_DIR="$HOME/dev.afsitb.et"
-            cd $APP_DIR
+            cd ~/dev.afsitb.et
+            tar -xzf deploy.tar.gz
+            rm -f deploy.tar.gz
             mkdir -p tmp
             touch tmp/restart.txt
