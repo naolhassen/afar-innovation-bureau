@@ -41,14 +41,15 @@ jobs:
           host: ${{ secrets.CPANEL_SSH_HOST }}
           username: ${{ secrets.CPANEL_SSH_USER }}
           key: ${{ secrets.CPANEL_SSH_KEY }}
+          passphrase: ${{ secrets.CPANEL_SSH_PASSPHRASE }}
           port: ${{ secrets.CPANEL_SSH_PORT || 22 }}
           script: |
             set -e
-            APP_DIR="~/sitb-prod"
+            APP_DIR="$HOME/afsitb-prod"
             mkdir -p $APP_DIR
 
             cd $APP_DIR
-            
+
             # Fetch latest main branch code
             if [ ! -d ".git" ]; then
               git clone -b main https://github.com/${{ github.repository }}.git .
@@ -56,6 +57,10 @@ jobs:
               git fetch origin main
               git reset --hard origin/main
             fi
+
+            # Activate the cPanel Node.js app's virtualenv (Passenger)
+            # Adjust the node version path (e.g. 20) to match what you selected in cPanel
+            source $HOME/nodevenv/afsitb-prod/20/bin/activate
 
             # Install dependencies
             npm install --omit=dev --legacy-peer-deps
@@ -72,6 +77,8 @@ jobs:
             # Build app on server
             npm run build
 
-            # Restart cPanel Node.js app
+            deactivate
+
+            # Restart cPanel Node.js app (Passenger)
             mkdir -p tmp
             touch tmp/restart.txt
