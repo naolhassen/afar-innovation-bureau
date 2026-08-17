@@ -66,8 +66,9 @@ jobs:
             # Adjust the node version path (e.g. 20) to match what you selected in cPanel
             source $HOME/nodevenv/afsitb-prod/20/bin/activate
 
-            # Install dependencies
-            npm install --omit=dev --legacy-peer-deps
+            # Install all dependencies (devDependencies are required for
+            # prisma.config.ts and `next build`'s typecheck/CSS pipeline)
+            npm install --legacy-peer-deps
 
             # Generate Prisma Client & push migrations
             export DATABASE_URL="${{ secrets.PROD_DATABASE_URL }}"
