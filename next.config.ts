@@ -8,6 +8,12 @@ const nextConfig: NextConfig = {
     remotePatterns: [{ protocol: "https", hostname: "**" }],
   },
   allowedDevOrigins: ["127.0.0.1", "localhost"],
+  // Shared hosting (cPanel LVE) caps the number of processes an account can
+  // spawn. Next.js otherwise defaults to os.cpus().length - 1 worker
+  // processes, which can exceed that limit and crash the build with EAGAIN.
+  experimental: {
+    cpus: 2,
+  },
 };
 
 export default withNextIntl(nextConfig);
